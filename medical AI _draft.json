@@ -1,0 +1,904 @@
+{
+  "name": "medical AI ",
+  "project_type": "workflow",
+  "flow": {
+    "nodes": [
+      {
+        "id": "doc-0",
+        "type": "doc",
+        "data": {
+          "name": "Files",
+          "description": null,
+          "note": null,
+          "expressions": null,
+          "state": "SUCCESS",
+          "error": "",
+          "latency": 1.0419573783874512,
+          "org_id": "387c444d-f4ed-432f-b94e-395b95b9a486",
+          "user_id": "karlapolukoushik@gmail.com",
+          "flow_id": "6950d12b665b0c8c09400654",
+          "node_id": "doc-0",
+          "connection_id": null,
+          "params": {
+            "chunk_len": 2500,
+            "overlap": 1000,
+            "chunker": "sentence"
+          },
+          "output": null,
+          "exposed_variables": {
+            "properties": {
+              "documents": {
+                "alias": "documents",
+                "name": "documents",
+                "type": "Library",
+                "description": "Parsed content from uploaded files, processed via OCR and other techniques; ready for use (e.g., LLM input).",
+                "handle": "default"
+              },
+              "raw_files": {
+                "alias": "raw_files",
+                "name": "raw_files",
+                "type": "RawFilesCollection",
+                "description": "Raw uploaded files with filename titles and full content, without processing or chunking. Simple format: just title and content for each file.",
+                "handle": "raw_files"
+              },
+              "file_urls": {
+                "alias": "file_urls",
+                "name": "file_urls",
+                "type": "GenericListWrapper[str]",
+                "description": "References the uploaded files' paths, enabling further use, like email attachments or code interpreter with CSVs.",
+                "handle": "file_urls"
+              }
+            },
+            "handles_to_properties": {
+              "default": {
+                "alias": "documents",
+                "name": "documents",
+                "type": "Library",
+                "description": "Parsed content from uploaded files, processed via OCR and other techniques; ready for use (e.g., LLM input).",
+                "handle": "default"
+              },
+              "raw_files": {
+                "alias": "raw_files",
+                "name": "raw_files",
+                "type": "RawFilesCollection",
+                "description": "Raw uploaded files with filename titles and full content, without processing or chunking. Simple format: just title and content for each file.",
+                "handle": "raw_files"
+              },
+              "file_urls": {
+                "alias": "file_urls",
+                "name": "file_urls",
+                "type": "GenericListWrapper[str]",
+                "description": "References the uploaded files' paths, enabling further use, like email attachments or code interpreter with CSVs.",
+                "handle": "file_urls"
+              }
+            }
+          },
+          "max_retries": 0,
+          "delay_between_retries_in_seconds": 1.0,
+          "used_retries": 0,
+          "on_failure_branch": false,
+          "skip_node": false,
+          "is_node_pinned": false,
+          "pinned_node_outputs": null,
+          "text": "",
+          "user_exposed": true,
+          "file_paths": [],
+          "enable_parsing": true
+        },
+        "selected": false,
+        "dragging": false,
+        "position": {
+          "x": 55.64360049662622,
+          "y": 384.486179441814
+        },
+        "extent": null,
+        "parentId": null,
+        "style": null
+      },
+      {
+        "id": "knowledgebase-0",
+        "type": "knowledgebase",
+        "data": {
+          "name": "Documents",
+          "description": null,
+          "note": null,
+          "expressions": null,
+          "state": "SUCCESS",
+          "error": "",
+          "latency": 2.285888910293579,
+          "org_id": "387c444d-f4ed-432f-b94e-395b95b9a486",
+          "user_id": "karlapolukoushik@gmail.com",
+          "flow_id": "6950d12b665b0c8c09400654",
+          "node_id": "knowledgebase-0",
+          "connection_id": null,
+          "params": {},
+          "output": null,
+          "exposed_variables": {
+            "properties": {
+              "retrieved_text": {
+                "alias": "retrieved_text",
+                "name": "retrieved_text",
+                "type": "str",
+                "description": "Combined text from all query results, formatted for LLM consumption.",
+                "handle": "retrieved_text"
+              },
+              "query_results": {
+                "alias": "query_results",
+                "name": "query_results",
+                "type": "list",
+                "description": "Array of query results with metadata, sources, and scores.",
+                "handle": "default"
+              }
+            },
+            "handles_to_properties": {
+              "retrieved_text": {
+                "alias": "retrieved_text",
+                "name": "retrieved_text",
+                "type": "str",
+                "description": "Combined text from all query results, formatted for LLM consumption.",
+                "handle": "retrieved_text"
+              },
+              "query_results": {
+                "alias": "query_results",
+                "name": "query_results",
+                "type": "list",
+                "description": "Array of query results with metadata, sources, and scores.",
+                "handle": "query_results"
+              },
+              "default": {
+                "alias": "query_results",
+                "name": "query_results",
+                "type": "list",
+                "description": "Array of query results with metadata, sources, and scores.",
+                "handle": "default"
+              }
+            }
+          },
+          "max_retries": 0,
+          "delay_between_retries_in_seconds": 1.0,
+          "used_retries": 0,
+          "on_failure_branch": false,
+          "skip_node": false,
+          "is_node_pinned": false,
+          "pinned_node_outputs": null,
+          "search_settings": {
+            "retrieval": "chunks",
+            "max_chunks": 200,
+            "retrieve_doc_mode": false,
+            "top_k": 10,
+            "result_len": 7500,
+            "multi_query": false,
+            "advanced_rag": false,
+            "rerank": false,
+            "enable_query_transformation": false,
+            "query_transformation_flags": {
+              "keywords": false,
+              "hyde": false
+            },
+            "query_strategy": "semantic",
+            "metadata_filter_strategy": "NO_FILTER",
+            "priority_metadata_filter": null
+          },
+          "selected_items_by_knowledge_base": {
+            "1d017689-341d-4609-8151-39bcc4c56b1b": [],
+            "df7fd205-d07f-4943-8c59-087447bb84d9": []
+          },
+          "check_permissions_with_end_user_connection": false,
+          "add_flow_files_to_datapool": false,
+          "provider": null,
+          "output_fields": [
+            "text",
+            "citation_id",
+            "score",
+            "doc_name"
+          ],
+          "input_query": null
+        },
+        "selected": false,
+        "dragging": false,
+        "position": {
+          "x": 70.28288980741695,
+          "y": 29.467001830524936
+        },
+        "extent": null,
+        "parentId": null,
+        "style": null
+      },
+      {
+        "id": "out-0",
+        "type": "out",
+        "data": {
+          "name": "Answer",
+          "description": null,
+          "note": {
+            "color": "emerald",
+            "content": "<h2>User Output</h2><p>The response the user sees</p>",
+            "isVisible": true
+          },
+          "expressions": null,
+          "state": "SUCCESS",
+          "error": "",
+          "latency": 0.0011217594146728516,
+          "org_id": "387c444d-f4ed-432f-b94e-395b95b9a486",
+          "user_id": "karlapolukoushik@gmail.com",
+          "flow_id": "6950d12b665b0c8c09400654",
+          "node_id": "out-0",
+          "connection_id": null,
+          "params": {},
+          "output": "",
+          "exposed_variables": {
+            "properties": {
+              "text": {
+                "alias": "text",
+                "name": "text",
+                "type": "str",
+                "description": "The resolved output text.",
+                "handle": "default"
+              },
+              "files": {
+                "alias": "files",
+                "name": "files",
+                "type": "GenericListWrapper[FlowFile]",
+                "description": "Files coming from connected nodes that can be downloaded.",
+                "handle": "files"
+              }
+            },
+            "handles_to_properties": {
+              "text": {
+                "alias": "text",
+                "name": "text",
+                "type": "str",
+                "description": "The resolved output text.",
+                "handle": "text"
+              },
+              "files": {
+                "alias": "files",
+                "name": "files",
+                "type": "GenericListWrapper[FlowFile]",
+                "description": "Files coming from connected nodes that can be downloaded.",
+                "handle": "files"
+              },
+              "default": {
+                "alias": "text",
+                "name": "text",
+                "type": "str",
+                "description": "The resolved output text.",
+                "handle": "default"
+              }
+            }
+          },
+          "max_retries": 0,
+          "delay_between_retries_in_seconds": 1.0,
+          "used_retries": 0,
+          "on_failure_branch": false,
+          "skip_node": false,
+          "is_node_pinned": false,
+          "pinned_node_outputs": null,
+          "text": "Here is the information regarding White Blood Cell (WBC) and Hemoglobin levels based on the provided lab guide:\n\n**White Blood Cell Count (WBC)**\n*   **What it means:** WBCs are your body's infection-fighting cells. They help identify and fight inflammation and infection[^93826.1.0].\n*   **Normal Range:** 5,000 \u2013 10,000 cells per mm\u00b3 (or 5.0\u201310.0 x 10\u2079/L)[^93826.1.0].\n*   **Minimum Normal Count:** The lower limit of the normal range is **5,000 cells per mm\u00b3**[^93826.1.0].\n*   **Abnormal Values:** High levels often indicate infection, inflammation, or steroid use. Detailed low values are less common but can occur[^93826.1.0].\n\n**Hemoglobin (HGB)**\n*   **What it means:** This is the protein in red blood cells that carries oxygen throughout your body[^93826.1.0].\n*   **Normal Range (Adults):** 14 \u2013 17.4 g/dL[^93826.1.0].\n*   **Normal Range (Children):** 9.5 \u2013 20.5 g/dL[^93826.1.0].\n*   **Abnormal Values:** Low levels typically indicate anemia[^93826.1.0].\n\nWould you like me to also create a sample template of how such an agent should present a CBC report step by step?",
+          "citations": [
+            {
+              "id": "93826.1.0",
+              "source_id": "93826",
+              "title": "Common_Labs.pdf",
+              "text": "# COMMON LABS AND WHAT THEY MEAN\n\n\n\nThe following are labs that are commonly drawn in neuromuscular centers. Normal ranges have been provided by mayocliniclabs.com. Common reasons for obtaining these labs, as well as possible reasons for high and low values, are included. This list is not exhaustive and any abnormal values, questions, or concerns should be discussed with your neuromuscular center.\n\n\n\n# Blood Test\n\n\n\n# Normal Range\n\n\n\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\n\n\n\n# Complete Blood Count (CBC)\n\n\n\nCBC includes components of white blood cells (infection fighting cells), red blood cells (oxygen-carrying cells), and measurements of how effectively the blood is able to clot or respond to real or perceived infection.\n\n\n\n# White Blood Cell Count (WBC)\n\n\n\n5,000-10,000 WBCs per mm3 or 5.0-10.0 x 109 WBC per Liter\n\n\n\n\u2013 High: Infection, inflammation; may be\n\n\n\nelevated with steroid use \u2013 Low: Not commonly low\n\n\n\n# Red Blood Cell Count (RBC)\n\n\n\n# \u2013 Children: 3.8\u20136.0 million RBCs per\n\n\n\nmcL or 3.8\u20136.0 x 1012/L\n\n\n\n# \u2013 High: Dehydration \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 4.5\u20135.5 million RBCs per\n\n\n\n# microliter (mcL) or 4.5\u20135.5 x 1012/ liter (L)\n\n\n\n# Hemoglobin (HGB)\n\n\n\n\u2013 Children: 9.5\u201320.5 g/dL or 95\u2013205\n\n\n\n# g/L\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 14\u201317.4 grams per\n\n\n\n# deciliter (g/dL) or 140\u2013174 grams per liter (g/L)\n\n\n\n# Hematocrit (HCT) \u2013 Children: 29%\u201359% or 0.29\u20130.59\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# volume fraction\n\n\n\n\u2013 Adults: 42%\u201352% or 0.42\u20130.52\n\n\n\n# volume fraction\n\n\n\n# Mean Corpuscular Volume (MCV)\n\n\n\n\u2013 6 months-23 months: 69.5-81.7 fL \u2013 24 months-35 months: 71.3-84.0\n\n\n\n# fL\n\n\n\n\u2013 3-5 years: 77.2-89.5 fL \u2013 6-11 years: 77.8-91.1 fL \u2013 12-14 years: 79.9-93.0 fL \u2013 15-17 years: 82.5-98.0 fL \u2013 Adults: 78.2-97.9 fL\n\n\n\nMeasures the size of the average red blood cell. \u2013 Low: Microcytic anemia \u2013 High: Macrocytic anemia\n\n\n\n# Mean Corpuscular Hemoglobin (MCH)\n\n\n\n27-33 pg\n\n\n\nMeasures the average amount of hemoglobin in a single red blood cell. \u2013 Low: Iron deficiency anemia \u2013 High: Can indicate macrocytic anemia\n\n\n\n# Notes\n\n\n\n1",
+              "citation_source_type": "knowledge_bases",
+              "source_is_website": false,
+              "source_mime_type": "application/pdf",
+              "external_source_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NzE0MzYzNTYsImV4cCI6MTc3MjA0MTE1Nn0.8vh9mB2fksluD-EJiDJkn1n-YehjkVqNTr983krUGTk",
+              "supabase_signed_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NzE0MzYzNTYsImV4cCI6MTc3MjA0MTE1Nn0.8vh9mB2fksluD-EJiDJkn1n-YehjkVqNTr983krUGTk&download=Common_Labs.pdf",
+              "position": {
+                "page_idx": "1",
+                "chunk_idx": "0"
+              },
+              "knowledge_base_id": "df7fd205-d07f-4943-8c59-087447bb84d9",
+              "inode_id": "4b656858-4395-47a0-8dbc-3ab65b6653b8"
+            },
+            {
+              "id": "93826.1.0",
+              "source_id": "93826",
+              "title": "Common_Labs.pdf",
+              "text": "# COMMON LABS AND WHAT THEY MEAN\n\n\n\nThe following are labs that are commonly drawn in neuromuscular centers. Normal ranges have been provided by mayocliniclabs.com. Common reasons for obtaining these labs, as well as possible reasons for high and low values, are included. This list is not exhaustive and any abnormal values, questions, or concerns should be discussed with your neuromuscular center.\n\n\n\n# Blood Test\n\n\n\n# Normal Range\n\n\n\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\n\n\n\n# Complete Blood Count (CBC)\n\n\n\nCBC includes components of white blood cells (infection fighting cells), red blood cells (oxygen-carrying cells), and measurements of how effectively the blood is able to clot or respond to real or perceived infection.\n\n\n\n# White Blood Cell Count (WBC)\n\n\n\n5,000-10,000 WBCs per mm3 or 5.0-10.0 x 109 WBC per Liter\n\n\n\n\u2013 High: Infection, inflammation; may be\n\n\n\nelevated with steroid use \u2013 Low: Not commonly low\n\n\n\n# Red Blood Cell Count (RBC)\n\n\n\n# \u2013 Children: 3.8\u20136.0 million RBCs per\n\n\n\nmcL or 3.8\u20136.0 x 1012/L\n\n\n\n# \u2013 High: Dehydration \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 4.5\u20135.5 million RBCs per\n\n\n\n# microliter (mcL) or 4.5\u20135.5 x 1012/ liter (L)\n\n\n\n# Hemoglobin (HGB)\n\n\n\n\u2013 Children: 9.5\u201320.5 g/dL or 95\u2013205\n\n\n\n# g/L\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 14\u201317.4 grams per\n\n\n\n# deciliter (g/dL) or 140\u2013174 grams per liter (g/L)\n\n\n\n# Hematocrit (HCT) \u2013 Children: 29%\u201359% or 0.29\u20130.59\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# volume fraction\n\n\n\n\u2013 Adults: 42%\u201352% or 0.42\u20130.52\n\n\n\n# volume fraction\n\n\n\n# Mean Corpuscular Volume (MCV)\n\n\n\n\u2013 6 months-23 months: 69.5-81.7 fL \u2013 24 months-35 months: 71.3-84.0\n\n\n\n# fL\n\n\n\n\u2013 3-5 years: 77.2-89.5 fL \u2013 6-11 years: 77.8-91.1 fL \u2013 12-14 years: 79.9-93.0 fL \u2013 15-17 years: 82.5-98.0 fL \u2013 Adults: 78.2-97.9 fL\n\n\n\nMeasures the size of the average red blood cell. \u2013 Low: Microcytic anemia \u2013 High: Macrocytic anemia\n\n\n\n# Mean Corpuscular Hemoglobin (MCH)\n\n\n\n27-33 pg\n\n\n\nMeasures the average amount of hemoglobin in a single red blood cell. \u2013 Low: Iron deficiency anemia \u2013 High: Can indicate macrocytic anemia\n\n\n\n# Notes\n\n\n\n1",
+              "citation_source_type": "knowledge_bases",
+              "source_is_website": false,
+              "source_mime_type": "application/pdf",
+              "external_source_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NzE0MzYzNTYsImV4cCI6MTc3MjA0MTE1Nn0.8vh9mB2fksluD-EJiDJkn1n-YehjkVqNTr983krUGTk",
+              "supabase_signed_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NzE0MzYzNTYsImV4cCI6MTc3MjA0MTE1Nn0.8vh9mB2fksluD-EJiDJkn1n-YehjkVqNTr983krUGTk&download=Common_Labs.pdf",
+              "position": {
+                "page_idx": "1",
+                "chunk_idx": "0"
+              },
+              "knowledge_base_id": "df7fd205-d07f-4943-8c59-087447bb84d9",
+              "inode_id": "4b656858-4395-47a0-8dbc-3ab65b6653b8"
+            },
+            {
+              "id": "93826.1.0",
+              "source_id": "93826",
+              "title": "Common_Labs.pdf",
+              "text": "# COMMON LABS AND WHAT THEY MEAN\n\n\n\nThe following are labs that are commonly drawn in neuromuscular centers. Normal ranges have been provided by mayocliniclabs.com. Common reasons for obtaining these labs, as well as possible reasons for high and low values, are included. This list is not exhaustive and any abnormal values, questions, or concerns should be discussed with your neuromuscular center.\n\n\n\n# Blood Test\n\n\n\n# Normal Range\n\n\n\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\n\n\n\n# Complete Blood Count (CBC)\n\n\n\nCBC includes components of white blood cells (infection fighting cells), red blood cells (oxygen-carrying cells), and measurements of how effectively the blood is able to clot or respond to real or perceived infection.\n\n\n\n# White Blood Cell Count (WBC)\n\n\n\n5,000-10,000 WBCs per mm3 or 5.0-10.0 x 109 WBC per Liter\n\n\n\n\u2013 High: Infection, inflammation; may be\n\n\n\nelevated with steroid use \u2013 Low: Not commonly low\n\n\n\n# Red Blood Cell Count (RBC)\n\n\n\n# \u2013 Children: 3.8\u20136.0 million RBCs per\n\n\n\nmcL or 3.8\u20136.0 x 1012/L\n\n\n\n# \u2013 High: Dehydration \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 4.5\u20135.5 million RBCs per\n\n\n\n# microliter (mcL) or 4.5\u20135.5 x 1012/ liter (L)\n\n\n\n# Hemoglobin (HGB)\n\n\n\n\u2013 Children: 9.5\u201320.5 g/dL or 95\u2013205\n\n\n\n# g/L\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 14\u201317.4 grams per\n\n\n\n# deciliter (g/dL) or 140\u2013174 grams per liter (g/L)\n\n\n\n# Hematocrit (HCT) \u2013 Children: 29%\u201359% or 0.29\u20130.59\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# volume fraction\n\n\n\n\u2013 Adults: 42%\u201352% or 0.42\u20130.52\n\n\n\n# volume fraction\n\n\n\n# Mean Corpuscular Volume (MCV)\n\n\n\n\u2013 6 months-23 months: 69.5-81.7 fL \u2013 24 months-35 months: 71.3-84.0\n\n\n\n# fL\n\n\n\n\u2013 3-5 years: 77.2-89.5 fL \u2013 6-11 years: 77.8-91.1 fL \u2013 12-14 years: 79.9-93.0 fL \u2013 15-17 years: 82.5-98.0 fL \u2013 Adults: 78.2-97.9 fL\n\n\n\nMeasures the size of the average red blood cell. \u2013 Low: Microcytic anemia \u2013 High: Macrocytic anemia\n\n\n\n# Mean Corpuscular Hemoglobin (MCH)\n\n\n\n27-33 pg\n\n\n\nMeasures the average amount of hemoglobin in a single red blood cell. \u2013 Low: Iron deficiency anemia \u2013 High: Can indicate macrocytic anemia\n\n\n\n# Notes\n\n\n\n1",
+              "citation_source_type": "knowledge_bases",
+              "source_is_website": false,
+              "source_mime_type": "application/pdf",
+              "external_source_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NzE0MzYzNTYsImV4cCI6MTc3MjA0MTE1Nn0.8vh9mB2fksluD-EJiDJkn1n-YehjkVqNTr983krUGTk",
+              "supabase_signed_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NzE0MzYzNTYsImV4cCI6MTc3MjA0MTE1Nn0.8vh9mB2fksluD-EJiDJkn1n-YehjkVqNTr983krUGTk&download=Common_Labs.pdf",
+              "position": {
+                "page_idx": "1",
+                "chunk_idx": "0"
+              },
+              "knowledge_base_id": "df7fd205-d07f-4943-8c59-087447bb84d9",
+              "inode_id": "4b656858-4395-47a0-8dbc-3ab65b6653b8"
+            },
+            {
+              "id": "93826.1.0",
+              "source_id": "93826",
+              "title": "Common_Labs.pdf",
+              "text": "# COMMON LABS AND WHAT THEY MEAN\n\n\n\nThe following are labs that are commonly drawn in neuromuscular centers. Normal ranges have been provided by mayocliniclabs.com. Common reasons for obtaining these labs, as well as possible reasons for high and low values, are included. This list is not exhaustive and any abnormal values, questions, or concerns should be discussed with your neuromuscular center.\n\n\n\n# Blood Test\n\n\n\n# Normal Range\n\n\n\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\n\n\n\n# Complete Blood Count (CBC)\n\n\n\nCBC includes components of white blood cells (infection fighting cells), red blood cells (oxygen-carrying cells), and measurements of how effectively the blood is able to clot or respond to real or perceived infection.\n\n\n\n# White Blood Cell Count (WBC)\n\n\n\n5,000-10,000 WBCs per mm3 or 5.0-10.0 x 109 WBC per Liter\n\n\n\n\u2013 High: Infection, inflammation; may be\n\n\n\nelevated with steroid use \u2013 Low: Not commonly low\n\n\n\n# Red Blood Cell Count (RBC)\n\n\n\n# \u2013 Children: 3.8\u20136.0 million RBCs per\n\n\n\nmcL or 3.8\u20136.0 x 1012/L\n\n\n\n# \u2013 High: Dehydration \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 4.5\u20135.5 million RBCs per\n\n\n\n# microliter (mcL) or 4.5\u20135.5 x 1012/ liter (L)\n\n\n\n# Hemoglobin (HGB)\n\n\n\n\u2013 Children: 9.5\u201320.5 g/dL or 95\u2013205\n\n\n\n# g/L\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 14\u201317.4 grams per\n\n\n\n# deciliter (g/dL) or 140\u2013174 grams per liter (g/L)\n\n\n\n# Hematocrit (HCT) \u2013 Children: 29%\u201359% or 0.29\u20130.59\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# volume fraction\n\n\n\n\u2013 Adults: 42%\u201352% or 0.42\u20130.52\n\n\n\n# volume fraction\n\n\n\n# Mean Corpuscular Volume (MCV)\n\n\n\n\u2013 6 months-23 months: 69.5-81.7 fL \u2013 24 months-35 months: 71.3-84.0\n\n\n\n# fL\n\n\n\n\u2013 3-5 years: 77.2-89.5 fL \u2013 6-11 years: 77.8-91.1 fL \u2013 12-14 years: 79.9-93.0 fL \u2013 15-17 years: 82.5-98.0 fL \u2013 Adults: 78.2-97.9 fL\n\n\n\nMeasures the size of the average red blood cell. \u2013 Low: Microcytic anemia \u2013 High: Macrocytic anemia\n\n\n\n# Mean Corpuscular Hemoglobin (MCH)\n\n\n\n27-33 pg\n\n\n\nMeasures the average amount of hemoglobin in a single red blood cell. \u2013 Low: Iron deficiency anemia \u2013 High: Can indicate macrocytic anemia\n\n\n\n# Notes\n\n\n\n1",
+              "citation_source_type": "knowledge_bases",
+              "source_is_website": false,
+              "source_mime_type": "application/pdf",
+              "external_source_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NzE0MzYzNTYsImV4cCI6MTc3MjA0MTE1Nn0.8vh9mB2fksluD-EJiDJkn1n-YehjkVqNTr983krUGTk",
+              "supabase_signed_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NzE0MzYzNTYsImV4cCI6MTc3MjA0MTE1Nn0.8vh9mB2fksluD-EJiDJkn1n-YehjkVqNTr983krUGTk&download=Common_Labs.pdf",
+              "position": {
+                "page_idx": "1",
+                "chunk_idx": "0"
+              },
+              "knowledge_base_id": "df7fd205-d07f-4943-8c59-087447bb84d9",
+              "inode_id": "4b656858-4395-47a0-8dbc-3ab65b6653b8"
+            },
+            {
+              "id": "93826.1.0",
+              "source_id": "93826",
+              "title": "Common_Labs.pdf",
+              "text": "# COMMON LABS AND WHAT THEY MEAN\n\n\n\nThe following are labs that are commonly drawn in neuromuscular centers. Normal ranges have been provided by mayocliniclabs.com. Common reasons for obtaining these labs, as well as possible reasons for high and low values, are included. This list is not exhaustive and any abnormal values, questions, or concerns should be discussed with your neuromuscular center.\n\n\n\n# Blood Test\n\n\n\n# Normal Range\n\n\n\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\n\n\n\n# Complete Blood Count (CBC)\n\n\n\nCBC includes components of white blood cells (infection fighting cells), red blood cells (oxygen-carrying cells), and measurements of how effectively the blood is able to clot or respond to real or perceived infection.\n\n\n\n# White Blood Cell Count (WBC)\n\n\n\n5,000-10,000 WBCs per mm3 or 5.0-10.0 x 109 WBC per Liter\n\n\n\n\u2013 High: Infection, inflammation; may be\n\n\n\nelevated with steroid use \u2013 Low: Not commonly low\n\n\n\n# Red Blood Cell Count (RBC)\n\n\n\n# \u2013 Children: 3.8\u20136.0 million RBCs per\n\n\n\nmcL or 3.8\u20136.0 x 1012/L\n\n\n\n# \u2013 High: Dehydration \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 4.5\u20135.5 million RBCs per\n\n\n\n# microliter (mcL) or 4.5\u20135.5 x 1012/ liter (L)\n\n\n\n# Hemoglobin (HGB)\n\n\n\n\u2013 Children: 9.5\u201320.5 g/dL or 95\u2013205\n\n\n\n# g/L\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 14\u201317.4 grams per\n\n\n\n# deciliter (g/dL) or 140\u2013174 grams per liter (g/L)\n\n\n\n# Hematocrit (HCT) \u2013 Children: 29%\u201359% or 0.29\u20130.59\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# volume fraction\n\n\n\n\u2013 Adults: 42%\u201352% or 0.42\u20130.52\n\n\n\n# volume fraction\n\n\n\n# Mean Corpuscular Volume (MCV)\n\n\n\n\u2013 6 months-23 months: 69.5-81.7 fL \u2013 24 months-35 months: 71.3-84.0\n\n\n\n# fL\n\n\n\n\u2013 3-5 years: 77.2-89.5 fL \u2013 6-11 years: 77.8-91.1 fL \u2013 12-14 years: 79.9-93.0 fL \u2013 15-17 years: 82.5-98.0 fL \u2013 Adults: 78.2-97.9 fL\n\n\n\nMeasures the size of the average red blood cell. \u2013 Low: Microcytic anemia \u2013 High: Macrocytic anemia\n\n\n\n# Mean Corpuscular Hemoglobin (MCH)\n\n\n\n27-33 pg\n\n\n\nMeasures the average amount of hemoglobin in a single red blood cell. \u2013 Low: Iron deficiency anemia \u2013 High: Can indicate macrocytic anemia\n\n\n\n# Notes\n\n\n\n1",
+              "citation_source_type": "knowledge_bases",
+              "source_is_website": false,
+              "source_mime_type": "application/pdf",
+              "external_source_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NzE0MzYzNTYsImV4cCI6MTc3MjA0MTE1Nn0.8vh9mB2fksluD-EJiDJkn1n-YehjkVqNTr983krUGTk",
+              "supabase_signed_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NzE0MzYzNTYsImV4cCI6MTc3MjA0MTE1Nn0.8vh9mB2fksluD-EJiDJkn1n-YehjkVqNTr983krUGTk&download=Common_Labs.pdf",
+              "position": {
+                "page_idx": "1",
+                "chunk_idx": "0"
+              },
+              "knowledge_base_id": "df7fd205-d07f-4943-8c59-087447bb84d9",
+              "inode_id": "4b656858-4395-47a0-8dbc-3ab65b6653b8"
+            },
+            {
+              "id": "93826.1.0",
+              "source_id": "93826",
+              "title": "Common_Labs.pdf",
+              "text": "# COMMON LABS AND WHAT THEY MEAN\n\n\n\nThe following are labs that are commonly drawn in neuromuscular centers. Normal ranges have been provided by mayocliniclabs.com. Common reasons for obtaining these labs, as well as possible reasons for high and low values, are included. This list is not exhaustive and any abnormal values, questions, or concerns should be discussed with your neuromuscular center.\n\n\n\n# Blood Test\n\n\n\n# Normal Range\n\n\n\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\n\n\n\n# Complete Blood Count (CBC)\n\n\n\nCBC includes components of white blood cells (infection fighting cells), red blood cells (oxygen-carrying cells), and measurements of how effectively the blood is able to clot or respond to real or perceived infection.\n\n\n\n# White Blood Cell Count (WBC)\n\n\n\n5,000-10,000 WBCs per mm3 or 5.0-10.0 x 109 WBC per Liter\n\n\n\n\u2013 High: Infection, inflammation; may be\n\n\n\nelevated with steroid use \u2013 Low: Not commonly low\n\n\n\n# Red Blood Cell Count (RBC)\n\n\n\n# \u2013 Children: 3.8\u20136.0 million RBCs per\n\n\n\nmcL or 3.8\u20136.0 x 1012/L\n\n\n\n# \u2013 High: Dehydration \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 4.5\u20135.5 million RBCs per\n\n\n\n# microliter (mcL) or 4.5\u20135.5 x 1012/ liter (L)\n\n\n\n# Hemoglobin (HGB)\n\n\n\n\u2013 Children: 9.5\u201320.5 g/dL or 95\u2013205\n\n\n\n# g/L\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 14\u201317.4 grams per\n\n\n\n# deciliter (g/dL) or 140\u2013174 grams per liter (g/L)\n\n\n\n# Hematocrit (HCT) \u2013 Children: 29%\u201359% or 0.29\u20130.59\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# volume fraction\n\n\n\n\u2013 Adults: 42%\u201352% or 0.42\u20130.52\n\n\n\n# volume fraction\n\n\n\n# Mean Corpuscular Volume (MCV)\n\n\n\n\u2013 6 months-23 months: 69.5-81.7 fL \u2013 24 months-35 months: 71.3-84.0\n\n\n\n# fL\n\n\n\n\u2013 3-5 years: 77.2-89.5 fL \u2013 6-11 years: 77.8-91.1 fL \u2013 12-14 years: 79.9-93.0 fL \u2013 15-17 years: 82.5-98.0 fL \u2013 Adults: 78.2-97.9 fL\n\n\n\nMeasures the size of the average red blood cell. \u2013 Low: Microcytic anemia \u2013 High: Macrocytic anemia\n\n\n\n# Mean Corpuscular Hemoglobin (MCH)\n\n\n\n27-33 pg\n\n\n\nMeasures the average amount of hemoglobin in a single red blood cell. \u2013 Low: Iron deficiency anemia \u2013 High: Can indicate macrocytic anemia\n\n\n\n# Notes\n\n\n\n1",
+              "citation_source_type": "knowledge_bases",
+              "source_is_website": false,
+              "source_mime_type": "application/pdf",
+              "external_source_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NzE0MzYzNTYsImV4cCI6MTc3MjA0MTE1Nn0.8vh9mB2fksluD-EJiDJkn1n-YehjkVqNTr983krUGTk",
+              "supabase_signed_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NzE0MzYzNTYsImV4cCI6MTc3MjA0MTE1Nn0.8vh9mB2fksluD-EJiDJkn1n-YehjkVqNTr983krUGTk&download=Common_Labs.pdf",
+              "position": {
+                "page_idx": "1",
+                "chunk_idx": "0"
+              },
+              "knowledge_base_id": "df7fd205-d07f-4943-8c59-087447bb84d9",
+              "inode_id": "4b656858-4395-47a0-8dbc-3ab65b6653b8"
+            },
+            {
+              "id": "93826.1.0",
+              "source_id": "93826",
+              "title": "Common_Labs.pdf",
+              "text": "# COMMON LABS AND WHAT THEY MEAN\n\n\n\nThe following are labs that are commonly drawn in neuromuscular centers. Normal ranges have been provided by mayocliniclabs.com. Common reasons for obtaining these labs, as well as possible reasons for high and low values, are included. This list is not exhaustive and any abnormal values, questions, or concerns should be discussed with your neuromuscular center.\n\n\n\n# Blood Test\n\n\n\n# Normal Range\n\n\n\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\n\n\n\n# Complete Blood Count (CBC)\n\n\n\nCBC includes components of white blood cells (infection fighting cells), red blood cells (oxygen-carrying cells), and measurements of how effectively the blood is able to clot or respond to real or perceived infection.\n\n\n\n# White Blood Cell Count (WBC)\n\n\n\n5,000-10,000 WBCs per mm3 or 5.0-10.0 x 109 WBC per Liter\n\n\n\n\u2013 High: Infection, inflammation; may be\n\n\n\nelevated with steroid use \u2013 Low: Not commonly low\n\n\n\n# Red Blood Cell Count (RBC)\n\n\n\n# \u2013 Children: 3.8\u20136.0 million RBCs per\n\n\n\nmcL or 3.8\u20136.0 x 1012/L\n\n\n\n# \u2013 High: Dehydration \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 4.5\u20135.5 million RBCs per\n\n\n\n# microliter (mcL) or 4.5\u20135.5 x 1012/ liter (L)\n\n\n\n# Hemoglobin (HGB)\n\n\n\n\u2013 Children: 9.5\u201320.5 g/dL or 95\u2013205\n\n\n\n# g/L\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 14\u201317.4 grams per\n\n\n\n# deciliter (g/dL) or 140\u2013174 grams per liter (g/L)\n\n\n\n# Hematocrit (HCT) \u2013 Children: 29%\u201359% or 0.29\u20130.59\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# volume fraction\n\n\n\n\u2013 Adults: 42%\u201352% or 0.42\u20130.52\n\n\n\n# volume fraction\n\n\n\n# Mean Corpuscular Volume (MCV)\n\n\n\n\u2013 6 months-23 months: 69.5-81.7 fL \u2013 24 months-35 months: 71.3-84.0\n\n\n\n# fL\n\n\n\n\u2013 3-5 years: 77.2-89.5 fL \u2013 6-11 years: 77.8-91.1 fL \u2013 12-14 years: 79.9-93.0 fL \u2013 15-17 years: 82.5-98.0 fL \u2013 Adults: 78.2-97.9 fL\n\n\n\nMeasures the size of the average red blood cell. \u2013 Low: Microcytic anemia \u2013 High: Macrocytic anemia\n\n\n\n# Mean Corpuscular Hemoglobin (MCH)\n\n\n\n27-33 pg\n\n\n\nMeasures the average amount of hemoglobin in a single red blood cell. \u2013 Low: Iron deficiency anemia \u2013 High: Can indicate macrocytic anemia\n\n\n\n# Notes\n\n\n\n1",
+              "citation_source_type": "knowledge_bases",
+              "source_is_website": false,
+              "source_mime_type": "application/pdf",
+              "external_source_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NzE0MzYzNTYsImV4cCI6MTc3MjA0MTE1Nn0.8vh9mB2fksluD-EJiDJkn1n-YehjkVqNTr983krUGTk",
+              "supabase_signed_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NzE0MzYzNTYsImV4cCI6MTc3MjA0MTE1Nn0.8vh9mB2fksluD-EJiDJkn1n-YehjkVqNTr983krUGTk&download=Common_Labs.pdf",
+              "position": {
+                "page_idx": "1",
+                "chunk_idx": "0"
+              },
+              "knowledge_base_id": "df7fd205-d07f-4943-8c59-087447bb84d9",
+              "inode_id": "4b656858-4395-47a0-8dbc-3ab65b6653b8"
+            },
+            {
+              "id": "93826.1.0",
+              "source_id": "93826",
+              "title": "Common_Labs.pdf",
+              "text": "# COMMON LABS AND WHAT THEY MEAN\n\n\n\nThe following are labs that are commonly drawn in neuromuscular centers. Normal ranges have been provided by mayocliniclabs.com. Common reasons for obtaining these labs, as well as possible reasons for high and low values, are included. This list is not exhaustive and any abnormal values, questions, or concerns should be discussed with your neuromuscular center.\n\n\n\n# Blood Test\n\n\n\n# Normal Range\n\n\n\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\n\n\n\n# Complete Blood Count (CBC)\n\n\n\nCBC includes components of white blood cells (infection fighting cells), red blood cells (oxygen-carrying cells), and measurements of how effectively the blood is able to clot or respond to real or perceived infection.\n\n\n\n# White Blood Cell Count (WBC)\n\n\n\n5,000-10,000 WBCs per mm3 or 5.0-10.0 x 109 WBC per Liter\n\n\n\n\u2013 High: Infection, inflammation; may be\n\n\n\nelevated with steroid use \u2013 Low: Not commonly low\n\n\n\n# Red Blood Cell Count (RBC)\n\n\n\n# \u2013 Children: 3.8\u20136.0 million RBCs per\n\n\n\nmcL or 3.8\u20136.0 x 1012/L\n\n\n\n# \u2013 High: Dehydration \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 4.5\u20135.5 million RBCs per\n\n\n\n# microliter (mcL) or 4.5\u20135.5 x 1012/ liter (L)\n\n\n\n# Hemoglobin (HGB)\n\n\n\n\u2013 Children: 9.5\u201320.5 g/dL or 95\u2013205\n\n\n\n# g/L\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 14\u201317.4 grams per\n\n\n\n# deciliter (g/dL) or 140\u2013174 grams per liter (g/L)\n\n\n\n# Hematocrit (HCT) \u2013 Children: 29%\u201359% or 0.29\u20130.59\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# volume fraction\n\n\n\n\u2013 Adults: 42%\u201352% or 0.42\u20130.52\n\n\n\n# volume fraction\n\n\n\n# Mean Corpuscular Volume (MCV)\n\n\n\n\u2013 6 months-23 months: 69.5-81.7 fL \u2013 24 months-35 months: 71.3-84.0\n\n\n\n# fL\n\n\n\n\u2013 3-5 years: 77.2-89.5 fL \u2013 6-11 years: 77.8-91.1 fL \u2013 12-14 years: 79.9-93.0 fL \u2013 15-17 years: 82.5-98.0 fL \u2013 Adults: 78.2-97.9 fL\n\n\n\nMeasures the size of the average red blood cell. \u2013 Low: Microcytic anemia \u2013 High: Macrocytic anemia\n\n\n\n# Mean Corpuscular Hemoglobin (MCH)\n\n\n\n27-33 pg\n\n\n\nMeasures the average amount of hemoglobin in a single red blood cell. \u2013 Low: Iron deficiency anemia \u2013 High: Can indicate macrocytic anemia\n\n\n\n# Notes\n\n\n\n1",
+              "citation_source_type": "knowledge_bases",
+              "source_is_website": false,
+              "source_mime_type": "application/pdf",
+              "external_source_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NzE0MzYzNTYsImV4cCI6MTc3MjA0MTE1Nn0.8vh9mB2fksluD-EJiDJkn1n-YehjkVqNTr983krUGTk",
+              "supabase_signed_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NzE0MzYzNTYsImV4cCI6MTc3MjA0MTE1Nn0.8vh9mB2fksluD-EJiDJkn1n-YehjkVqNTr983krUGTk&download=Common_Labs.pdf",
+              "position": {
+                "page_idx": "1",
+                "chunk_idx": "0"
+              },
+              "knowledge_base_id": "df7fd205-d07f-4943-8c59-087447bb84d9",
+              "inode_id": "4b656858-4395-47a0-8dbc-3ab65b6653b8"
+            }
+          ],
+          "files": {
+            "elements": []
+          }
+        },
+        "selected": false,
+        "dragging": false,
+        "position": {
+          "x": 1651.4225684954426,
+          "y": -281.96252151200235
+        },
+        "extent": null,
+        "parentId": null,
+        "style": null
+      },
+      {
+        "id": "in-0",
+        "type": "in",
+        "data": {
+          "name": "Question",
+          "description": null,
+          "note": {
+            "color": "emerald",
+            "content": "<h2>User message</h2><p>The message the user sends</p>",
+            "isVisible": true
+          },
+          "expressions": null,
+          "state": "SUCCESS",
+          "error": "",
+          "latency": 0.00180816650390625,
+          "org_id": "387c444d-f4ed-432f-b94e-395b95b9a486",
+          "user_id": "karlapolukoushik@gmail.com",
+          "flow_id": "6950d12b665b0c8c09400654",
+          "node_id": "in-0",
+          "connection_id": null,
+          "params": {},
+          "output": null,
+          "exposed_variables": {
+            "properties": {
+              "text": {
+                "alias": "text",
+                "name": "text",
+                "type": "str",
+                "description": "User-provided input text with system variables resolved.",
+                "handle": "default"
+              }
+            },
+            "handles_to_properties": {
+              "text": {
+                "alias": "text",
+                "name": "text",
+                "type": "str",
+                "description": "User-provided input text with system variables resolved.",
+                "handle": "text"
+              },
+              "default": {
+                "alias": "text",
+                "name": "text",
+                "type": "str",
+                "description": "User-provided input text with system variables resolved.",
+                "handle": "default"
+              }
+            }
+          },
+          "max_retries": 0,
+          "delay_between_retries_in_seconds": 1.0,
+          "used_retries": 0,
+          "on_failure_branch": false,
+          "skip_node": false,
+          "is_node_pinned": false,
+          "pinned_node_outputs": null,
+          "text": "hello! Can you tell me WBC and hemoglobin levels..?\nand what is mean by WBC. what is the minimum WBC count\n"
+        },
+        "selected": true,
+        "dragging": false,
+        "position": {
+          "x": -445.430056588012,
+          "y": 25.19376485333862
+        },
+        "extent": null,
+        "parentId": null,
+        "style": null
+      },
+      {
+        "id": "llm-0",
+        "type": "llm",
+        "data": {
+          "name": "Google",
+          "description": null,
+          "note": null,
+          "expressions": [],
+          "state": "SUCCESS",
+          "error": "",
+          "latency": 12.744766235351562,
+          "org_id": "387c444d-f4ed-432f-b94e-395b95b9a486",
+          "user_id": "karlapolukoushik@gmail.com",
+          "flow_id": "6950d12b665b0c8c09400654",
+          "node_id": "llm-0",
+          "connection_id": null,
+          "params": {
+            "temperature": 0.0,
+            "top_p": 1.0,
+            "n": 1,
+            "stream": true,
+            "logit_bias": {},
+            "stop": null,
+            "max_tokens": null,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0,
+            "response_format": "text",
+            "json_schema": null,
+            "use_reasoning": false,
+            "reasoning_effort": null,
+            "safe_context_token_window": true,
+            "seed": 42
+          },
+          "output": null,
+          "exposed_variables": {
+            "properties": {
+              "completion": {
+                "alias": "completion",
+                "name": "completion",
+                "type": "str",
+                "description": "LLM completion text.",
+                "handle": "default"
+              },
+              "citation_list": {
+                "alias": "citation_list",
+                "name": "citation_list",
+                "type": "list",
+                "description": "List of citation objects referenced in the completion.",
+                "handle": "citations"
+              },
+              "subflow_tool_input": {
+                "alias": "subflow_tool_input",
+                "name": "subflow_tool_input",
+                "type": "str",
+                "description": "The input string passed by the LLM when calling a subflow tool.",
+                "handle": null
+              }
+            },
+            "handles_to_properties": {
+              "output": {
+                "alias": "completion",
+                "name": "completion",
+                "type": "str",
+                "description": "LLM completion text.",
+                "handle": "output"
+              },
+              "citations": {
+                "alias": "citation_list",
+                "name": "citation_list",
+                "type": "list",
+                "description": "List of citation objects referenced in the completion.",
+                "handle": "citations"
+              },
+              "default": {
+                "alias": "completion",
+                "name": "completion",
+                "type": "str",
+                "description": "LLM completion text.",
+                "handle": "default"
+              }
+            }
+          },
+          "max_retries": 0,
+          "delay_between_retries_in_seconds": 1.0,
+          "used_retries": 0,
+          "on_failure_branch": false,
+          "skip_node": false,
+          "is_node_pinned": false,
+          "pinned_node_outputs": null,
+          "provider": "Google",
+          "model": "gemini-3-pro-preview",
+          "system": "You will get the blood test report as context along with the user\u2019s question.\n\nExplain the report in short, clear bullet points.\n\nPoint out which values are normal, high, or low.\n\nKeep the tone friendly and easy to understand.\n\nBe brief but helpful, so the user quickly understands their results.\n\n\nWould you like me to also create a sample template of how such an agent should present a CBC report step by step?",
+          "prompt": "Context to answer user questions\n\n{{doc-0}}\n\n{{knowledgebase-0}}\n\nUser message\n\n{{in-0}}",
+          "image_urls": "",
+          "formatted_prompt": "system:\nYou will get the blood test report as context along with the user\u2019s question.\n\nExplain the report in short, clear bullet points.\n\nPoint out which values are normal, high, or low.\n\nKeep the tone friendly and easy to understand.\n\nBe brief but helpful, so the user quickly understands their results.\n\nWould you like me to also create a sample template of how such an agent should present a CBC report step by step?\n\nCite sources using [^#.#.#] at the end of sentences when needed, for example: 'Ice is less dense than water[^1234.1.1].' NO SPACE between the last word and the citation. Cite the most relevant sources that answer the question. Avoid citing irrelevant sources. DO NOT invent citations\u2014only use citation indexes that are provided in the format [^#.#.#].\n\nTool call responses may also contain citable information identified by the following format [^\\d+.\\d+.\\d+]. Cite this information if you have used it.\n\n\n\nprompt:\nContext to answer user questions\n\nNo documents provided.\n\n[{\"items\":[],\"filtered_file_count\":0,\"usage\":[],\"query\":\"hello! Can you tell me WBC and hemoglobin levels..?\\n\"},{\"items\":[{\"text\":\"# Blood Test\\n\\n\\n\\n# Normal Range\\n\\n\\n\\n# Mean Corpuscular Hemoglobin Concentration (MCHC)\\n\\n\\n\\n27-31 pg\\n\\n\\n\\n# Red Cell Distribution Width (RDW)\\n\\n\\n\\n11.5% - 14.5%\\n\\n\\n\\n# Platelets\\n\\n\\n\\n# \u2013 6 months-23 months: 206-445 x\\n\\n\\n\\n10(9)/L\\n\\n\\n\\n\u2013 24 months-35 months: 202-403 x\\n\\n\\n\\n10(9)/L\\n\\n\\n\\n\u2013 3-5 years: 187-445 x 10(9)/L \u2013 6-9 years: 187-400 x 10(9)/L \u2013 10-13 years: 177-381 x 10(9)/L \u2013 14-17 years: 139-320 x 10(9)/L \u2013 Adults: 135-317 x 10(9)/L\\n\\n\\n\\n# \\\"Differential\\\" measures different types of white blood cells:\\n\\n\\n\\n# Neutrophil %\\n\\n\\n\\n50% - 62%\\n\\n\\n\\n# Band Neutrophil %\\n\\n\\n\\n0% - 6%\\n\\n\\n\\n# Monocyte %\\n\\n\\n\\n3% - 7%\\n\\n\\n\\n# Eosinophil %\\n\\n\\n\\n0% - 3%\\n\\n\\n\\n# Basophil %\\n\\n\\n\\n0% - 1%\\n\\n\\n\\n# Lymphocyte %\\n\\n\\n\\n24% - 40%\\n\\n\\n\\n# Absolute Neutrophil\\n\\n\\n\\n\u2013 6 months-23 months: 1.19-7.21 x\\n\\n\\n\\n10(9)/L\\n\\n\\n\\n\u2013 24 months-35 months: 1.54-7.92\\n\\n\\n\\nx 10(9)/L\\n\\n\\n\\n\u2013 3-5 years: 1.60-7.80 x 10(9)/L \u2013 6-16 years: 1.40-6.10 x 10(9)/L \u2013 17 years: 1.80-7.20 x 10(9)/L \u2013 Adults: 1.56-6.45 x 10(9)/L\\n\\n\\n\\n# Absolute Lymphocyte\\n\\n\\n\\n\u2013 6 months-23 months: 1.56-7.83 x\\n\\n\\n\\n10(9)/L\\n\\n\\n\\n\u2013 24 months-35 months: 1.13-5.52\\n\\n\\n\\nx 10(9)/L\\n\\n\\n\\n\u2013 3-5 years: 1.60-5.30 x 10(9)/L \u2013 6-11 years: 1.40-3.90 x 10(9)/L \u2013 12-17 years: 1.00-3.20 x 10(9)/L \u2013 Adults: 0.95-3.07 x 10(9)/L\\n\\n\\n\\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\\n\\n\\n\\nMeasures the average concentration of hemoglobin within a single red blood cell. \u2013 Low: Can indicate iron deficiency anemia\\n\\n\\n\\n# Range of sizes of red blood cells.\\n\\n\\n\\n# \u2013 High: Bleeding, iron deficiency \u2013 Low: Not commonly low\\n\\n\\n\\nAll are part of the immune system, finding and fighting inflammation and infection.\\n\\n\\n\\n# Percentage of neutrophils in the blood.\\n\\n\\n\\nPercentage of neutrophils that are in the process of becoming mature neutrophils. \u2013 High: usually infection or inflammation\\n\\n\\n\\n# Percentage of monocytes in the blood.\\n\\n\\n\\n# Percentage of eosinophils in the blood.\\n\\n\\n\\n# Percentage of basophils in the blood.\\n\\n\\n\\n# Percentage of lymphocytes in the blood.\\n\\n\\n\\nHelp protect against fungal and bacterial infections. \u2013 High: Infection, injury, stress \u2013 Low: Disorders or infection\\n\\n\\n\\nHelp to protect against viral infections. \u2013 Low: Can indicate infection or\\n\\n\\n\\n# significant illness, medications or treatments.\\n\\n\\n\\n# \u2013 High: Infection, inflammation\\n\\n\\n\\n# Notes\\n\\n\\n\\n2\",\"citation_id\":\"[^81724.2.0]\",\"score\":0.505801260471344,\"doc_name\":\"Common_Labs.pdf\"},{\"text\":\"# COMMON LABS AND WHAT THEY MEAN\\n\\n\\n\\nThe following are labs that are commonly drawn in neuromuscular centers. Normal ranges have been provided by mayocliniclabs.com. Common reasons for obtaining these labs, as well as possible reasons for high and low values, are included. This list is not exhaustive and any abnormal values, questions, or concerns should be discussed with your neuromuscular center.\\n\\n\\n\\n# Blood Test\\n\\n\\n\\n# Normal Range\\n\\n\\n\\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\\n\\n\\n\\n# Complete Blood Count (CBC)\\n\\n\\n\\nCBC includes components of white blood cells (infection fighting cells), red blood cells (oxygen-carrying cells), and measurements of how effectively the blood is able to clot or respond to real or perceived infection.\\n\\n\\n\\n# White Blood Cell Count (WBC)\\n\\n\\n\\n5,000-10,000 WBCs per mm3 or 5.0-10.0 x 109 WBC per Liter\\n\\n\\n\\n\u2013 High: Infection, inflammation; may be\\n\\n\\n\\nelevated with steroid use \u2013 Low: Not commonly low\\n\\n\\n\\n# Red Blood Cell Count (RBC)\\n\\n\\n\\n# \u2013 Children: 3.8\u20136.0 million RBCs per\\n\\n\\n\\nmcL or 3.8\u20136.0 x 1012/L\\n\\n\\n\\n# \u2013 High: Dehydration \u2013 Low: Anemia\\n\\n\\n\\n# \u2013 Adults: 4.5\u20135.5 million RBCs per\\n\\n\\n\\n# microliter (mcL) or 4.5\u20135.5 x 1012/ liter (L)\\n\\n\\n\\n# Hemoglobin (HGB)\\n\\n\\n\\n\u2013 Children: 9.5\u201320.5 g/dL or 95\u2013205\\n\\n\\n\\n# g/L\\n\\n\\n\\n# \u2013 Low: Anemia\\n\\n\\n\\n# \u2013 Adults: 14\u201317.4 grams per\\n\\n\\n\\n# deciliter (g/dL) or 140\u2013174 grams per liter (g/L)\\n\\n\\n\\n# Hematocrit (HCT) \u2013 Children: 29%\u201359% or 0.29\u20130.59\\n\\n\\n\\n# \u2013 Low: Anemia\\n\\n\\n\\n# volume fraction\\n\\n\\n\\n\u2013 Adults: 42%\u201352% or 0.42\u20130.52\\n\\n\\n\\n# volume fraction\\n\\n\\n\\n# Mean Corpuscular Volume (MCV)\\n\\n\\n\\n\u2013 6 months-23 months: 69.5-81.7 fL \u2013 24 months-35 months: 71.3-84.0\\n\\n\\n\\n# fL\\n\\n\\n\\n\u2013 3-5 years: 77.2-89.5 fL \u2013 6-11 years: 77.8-91.1 fL \u2013 12-14 years: 79.9-93.0 fL \u2013 15-17 years: 82.5-98.0 fL \u2013 Adults: 78.2-97.9 fL\\n\\n\\n\\nMeasures the size of the average red blood cell. \u2013 Low: Microcytic anemia \u2013 High: Macrocytic anemia\\n\\n\\n\\n# Mean Corpuscular Hemoglobin (MCH)\\n\\n\\n\\n27-33 pg\\n\\n\\n\\nMeasures the average amount of hemoglobin in a single red blood cell. \u2013 Low: Iron deficiency anemia \u2013 High: Can indicate macrocytic anemia\\n\\n\\n\\n# Notes\\n\\n\\n\\n1\",\"citation_id\":\"[^81724.1.0]\",\"score\":0.45311295986175537,\"doc_name\":\"Common_Labs.pdf\"},{\"text\":\"# Blood Test\\n\\n\\n\\n# (Absolute) Eosinophil\\n\\n\\n\\n# Absolute Basophil\\n\\n\\n\\n# (Absolute) Monocytes\\n\\n\\n\\n# Renal Panel\\n\\n\\n\\n# Albumin\\n\\n\\n\\n# Anion Gap\\n\\n\\n\\n# Bicarbonate\\n\\n\\n\\n# Calcium\\n\\n\\n\\n# Normal Range\\n\\n\\n\\n\u2013 6 months-23 months: 0.02-0.82 x\\n\\n\\n\\n10(9)/L\\n\\n\\n\\n\u2013 24 months-35 months: 0.03-0.53\\n\\n\\n\\nx 10(9)/L\\n\\n\\n\\n\u2013 3-11 years: 0.00-0.50 x 10(9)/L \u2013 12-17 years: 0.10-0.20 x 10(9)/L \u2013 Adults: 0.03-0.48 x 10(9)/L\\n\\n\\n\\n\u2013 8 weeks-35 months: 0.01-0.06 x\\n\\n\\n\\n10(9)/L\\n\\n\\n\\n\u2013 3-17 years: 0.00-0.10 x 10(9)/L \u2013 Adults: 0.01-0.08 x 10(9)/L\\n\\n\\n\\n\u2013 6 months-23 months: 1.56-7.83 x\\n\\n\\n\\n10(9)/L\\n\\n\\n\\n\u2013 24 months-35 months: 1.13-5.52\\n\\n\\n\\nx 10(9)/L\\n\\n\\n\\n\u2013 3-5 years: 1.60-5.30 x 10(9)/L \u2013 6-11 years: 1.40-3.90 x 10(9)/L \u2013 12-17 years: 1.00-3.20 x 10(9)/L \u2013 Adults: 0.95-3.07 x 10(9)/L\\n\\n\\n\\n3.5 \u2013 5.0 g/dL\\n\\n\\n\\n3.5-5.0 \u2013 Over 7 years: 7-15\\n\\n\\n\\n\u2013 3 years: 18-26 mmol/L \u2013 4-5 years: 19-27 mmol/L \u2013 6-7 years: 20-28 mmol/L \u2013 8-17 years: 21-29 mmol/L \u2013 > or =18 years: 22-29 mmol/L\\n\\n\\n\\n\u2013 1-17 years: 9.3-10.6 mg/dL \u2013 18-59 years: 8.6-10.0 mg/dL\\n\\n\\n\\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\\n\\n\\n\\nHelp activate allergic responses. \u2013 High: Generally indicate an allergic reaction, infection (parasitic or otherwise), inflammation\\n\\n\\n\\nHelp wound healing, infection and allergic reactions. \u2013 High: Can indicate a blood disorder \u2013 Low: Allergic reactions, infections\\n\\n\\n\\nCirculate in the blood to pick up signs of danger. \u2013 High: May indicate a chronic infection, autoimmune diseases or blood disorder \u2013 Low: Usually with an overall low white blood cell count or exposure to toxins\\n\\n\\n\\nEvaluates the health and function of the kidneys.\\n\\n\\n\\nProtein filtered by the kidneys. \u2013 High: May indicate dehydration \u2013 Low: Usually occurs with edema\\n\\n\\n\\nChecks the level of acid in your blood. \u2013 High: May indicate acidosis\\n\\n\\n\\nAlteration of bicarbonate and carbon dioxide may reflect an acid-base imbalance. Bicarbonate levels are evaluated with carbon dioxide and other electrolytes to screen for electrolyte imbalances.\\n\\n\\n\\nHelps to screen for bone, kidney, parathyroid and gastrointestinal health/function. \u2013 High: Movement of calcium from\\n\\n\\n\\nthe bones to the blood; severely high calcium can cause heart arrhythmias \u2013 Low: Poorly functioning parathyroid\\n\\n\\n\\nglands or a lack of vitamin D synthesis of the body; may indicate kidney failure\\n\\n\\n\\n# Notes\\n\\n\\n\\n3\",\"citation_id\":\"[^81724.3.0]\",\"score\":0.44811487197875977,\"doc_name\":\"Common_Labs.pdf\"},{\"text\":\"# Blood Test\\n\\n\\n\\n# Low-Density Lipoprotein Cholesterol (LDL)\\n\\n\\n\\n# Triglycerides\\n\\n\\n\\n# Non-HDL-C\\n\\n\\n\\n# Iron Studies\\n\\n\\n\\n# Serum Ferritin\\n\\n\\n\\n# Iron\\n\\n\\n\\n# Transferrin (Serum)\\n\\n\\n\\n# Total Iron Binding Capacity (TIBD)\\n\\n\\n\\n# Normal Range\\n\\n\\n\\nChildren: \u2013 Acceptable: <110 mg/dL \u2013 Borderline high: 110-129 mg/dL \u2013 High: > or =130 mg/dL Adults: \u2013 Desirable: <100 mg/dL \u2013 Above desirable: 100-129 mg/dL \u2013 Borderline high: 130-159 mg/dL \u2013 High: 160-189 mg/dL \u2013 Very high: > or =190 mg/dL\\n\\n\\n\\n2-9 years: \u2013 Acceptable: <75 mg/dL \u2013 Borderline high: 75-99 mg/dL \u2013 High: > or =100mg/dL 10-17 years: \u2013 Acceptable: <90 mg/dL \u2013 Borderline high: 90-129 mg/dL \u2013 High: > or =130 mg/dL Adults: <200 mg/dL\\n\\n\\n\\nChildren: \u2013 Acceptable: <120 mg/dL \u2013 Borderline high: 120-144 mg/dL \u2013 High: > or =145 mg/dL Adults: \u2013 Desirable: <130 mg/dL \u2013 Above desirable: 130-159 mg/dL \u2013 Borderline high: 160-189 mg/dL \u2013 High: 190-219 \u2013 Very high: > or =220 mg/dL\\n\\n\\n\\n12-300 ng/mL (men)\\n\\n\\n\\n50-150 mcg/dL\\n\\n\\n\\n200-360 mg/dL\\n\\n\\n\\n250-400 mcg/dL\\n\\n\\n\\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\\n\\n\\n\\nMarker of cardiovascular risk. \u2013 High: Increased risk of coronary heart\\n\\n\\n\\n# disease\\n\\n\\n\\n# \u2013 Low: Decreased risk\\n\\n\\n\\nScreen for cardiovascular risk in patients with elevated cholesterol. \u2013 High: With high cholesterol, increase of\\n\\n\\n\\n# cardiovascular risk\\n\\n\\n\\nScreen for cardiovascular risk; subtracts HDL from total cholesterol. \u2013 High Ratios: Higher risk\\n\\n\\n\\n# \u2013 Low: Anemia\\n\\n\\n\\n# \u2013 Low: Anemia\\n\\n\\n\\n\u2013 Low: Indicates a lack of stored iron\\n\\n\\n\\n\u2013 High: May indicate chronic iron overload\\n\\n\\n\\n# diseases\\n\\n\\n\\n# Notes\\n\\n\\n\\n6\",\"citation_id\":\"[^81724.6.0]\",\"score\":0.3691249489784241,\"doc_name\":\"Common_Labs.pdf\"},{\"text\":\"# Blood Test\\n\\n\\n\\n# Carbon Dioxide\\n\\n\\n\\n# Creatinine\\n\\n\\n\\n# Chloride\\n\\n\\n\\n# Glucose\\n\\n\\n\\n# Phosphorous\\n\\n\\n\\n# Potassium\\n\\n\\n\\n# Sodium\\n\\n\\n\\n# Blood Urea Nitrogen (BUN)\\n\\n\\n\\n# Normal Range\\n\\n\\n\\n23-29 mEq/L\\n\\n\\n\\n\u2013 0-11 months: 0.17-0.42 mg/dL \u2013 1-5 years: 0.19-0.49 mg/dL \u2013 6-10 years: 0.26-0.61 mg/dL \u2013 11-14 years: 0.35-0.86 mg/dL \u2013 > or =15 years: 0.74-1.35 mg/dL\\n\\n\\n\\n98-107 mmol/L\\n\\n\\n\\n70-140 mg/dL\\n\\n\\n\\n\u2013 1-4 years: 4.3-5.4 mg/dL \u2013 5-13 years: 3.7-5.4 mg/dL \u2013 14-15 years: 3.5-5.3 mg/dL \u2013 16-17 years: 3.1-4.7 mg/dL \u2013 > or =18 years: 2.5-4.5 mg/dL\\n\\n\\n\\n3.6-5.2 mmol/L\\n\\n\\n\\n135-145 mmol/L\\n\\n\\n\\n\u2013 <12 months: not established \u2013 1-17 years: 7-20 mg/dL \u2013 > or =18 years: 8-24 mg/dL\\n\\n\\n\\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\\n\\n\\n\\nCollected and evaluated with bicarbonate. An imbalance indicates an electrolyte imbalance. \u2013 High: In Duchenne, can indicate respiratory acidosis, vomiting \u2013 Low: In Duchenne, can indicate respiratory alkalosis, diarrhea\\n\\n\\n\\nIndicates muscle breakdown. \u2013 High: May indicate kidney dysfunction,\\n\\n\\n\\n# dehydration, low blood volume\\n\\n\\n\\n# \u2013 Low: Uncommon\\n\\n\\n\\nIndication of fluid/electrolyte balance in the body. \u2013 High: May indicate dehydration, kidney\\n\\n\\n\\n# dysfunction, diabetes\\n\\n\\n\\n\u2013 Low: May indicate over-hydration,\\n\\n\\n\\n# prolonged vomiting\\n\\n\\n\\nScreen for diabetes. \u2013 High: May indicate poor glucose\\n\\n\\n\\nregulation by insulin in the body; a glucose tolerance test will be needed for further evaluation\\n\\n\\n\\nScreen for bone, parathyroid and kidney disease. \u2013 High: May indicate kidney dysfunction \u2013 Low: Phosphate shifts in the body (fluid/\\n\\n\\n\\n# electrolyte imbalances)\\n\\n\\n\\nIndication of fluid/electrolyte balance in the body. \u2013 High: Can be dangerous and should be\\n\\n\\n\\nmonitored closely\\n\\n\\n\\n\u2013 Low: Common with vomiting, diarrhea,\\n\\n\\n\\n# iron deficiency\\n\\n\\n\\nIndication of fluid/electrolyte balance in the body. \u2013 High: May indicate excessive loss of\\n\\n\\n\\n# body fluid\\n\\n\\n\\n# \u2013 Low: Vomiting, diarrhea, use of some\\n\\n\\n\\n# diuretics, metabolic acidosis\\n\\n\\n\\nScreens for kidney function. \u2013 High: Kidney issues or causes that may\\n\\n\\n\\nlead to kidney issues\\n\\n\\n\\n\u2013 Low: Uncommon but may indicate\\n\\n\\n\\n# severe starvation, severe liver disease\\n\\n\\n\\n# Notes\\n\\n\\n\\n4\",\"citation_id\":\"[^81724.4.0]\",\"score\":0.34897756576538086,\"doc_name\":\"Common_Labs.pdf\"},{\"text\":\"# Blood Test\\n\\n\\n\\n# Normal Range\\n\\n\\n\\n# Liver Profile\\n\\n\\n\\n# Alanine Aminotransferase (ALT)\\n\\n\\n\\n7-55 U/L\\n\\n\\n\\n# Alkaline Phosphatase (ALP)\\n\\n\\n\\n\u2013 4 years: 149-369 U/L \u2013 5 years: 179-416 U/L \u2013 6 years: 179-417 U/L \u2013 7 years: 172-405 U/L \u2013 8 years: 169-401 U/L \u2013 9 years: 175-411 U/L \u2013 10 years: 191-435 U/L \u2013 11 years: 185-507 U/L \u2013 12 years: 185-562 U/L \u2013 13 years: 182-587 U/L \u2013 14 years: 166-571 U/L \u2013 15 years: 138-511 U/L \u2013 16 years: 102-417 U/L \u2013 17 years: 69-311 U/L \u2013 18 years: 52-222 U/L \u2013 > or =19 years: 45-115 U/L\\n\\n\\n\\n# Aspartate Aminotransferase (AST)\\n\\n\\n\\n\u2013 1-13 years: 8-60 U/L \u2013 > or =14 years: 8-48 U/L\\n\\n\\n\\n# Albumin\\n\\n\\n\\n3.5-5.0 g/dL\\n\\n\\n\\n# Total Protein (TP) 6.3-7.9 g/dL\\n\\n\\n\\n# Total Bilirubin\\n\\n\\n\\n# \u2013 15 days to 17 years: < or =1.0 mg/\\n\\n\\n\\n# dL\\n\\n\\n\\n# \u2013 >18 years: < or =1.2 mg/dL\\n\\n\\n\\n# Lipid Profile\\n\\n\\n\\n# Total Cholesterol Children:\\n\\n\\n\\n\u2013 Desirable: <200 mg/dL \u2013 Borderline high: 200-239 mg/dL \u2013 High: > or =240 mg/dL Adults: <200 mg/dL\\n\\n\\n\\n# High-Density Lipoprotein Cholesterol (HDL)\\n\\n\\n\\nChildren: \u2013 Low HDL: <40 mg/dL \u2013 Borderline low: 40-45 mg/dL \u2013 Acceptable: >45 mg/dL Adults: 40 mg/dL\\n\\n\\n\\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\\n\\n\\n\\nResults are generally evaluated as a set to evaluate liver function.\\n\\n\\n\\n\u2013 High: Normal in Duchenne; indicates skeletal muscle breakdown, not liver dysfunction\\n\\n\\n\\nEvaluation of liver, bone, intestinal and parathyroid diseases. \u2013 High: Issues with liver or bone; may be elevated right after accelerated bone growth\\n\\n\\n\\n\u2013 High: Normal in Duchenne; indicates skeletal muscle breakdown, not liver dysfunction\\n\\n\\n\\nScreen for nutritional status. \u2013 High: May be high if dehydrated \u2013 Low: May indicate liver disease,\\n\\n\\n\\npoor protein intake, tissue damage, inflammation\\n\\n\\n\\n# Screen for overall health.\\n\\n\\n\\nScreen for liver function. \u2013 Abnormal: Jaundice (newborns) \u2013 High after Newborn: Breakdown of\\n\\n\\n\\n# blood cells\\n\\n\\n\\n# \u2013 Low: Liver obstruction or hepatitis\\n\\n\\n\\nMeasured to assess cardiovascular risk\\n\\n\\n\\nScreens for risk of coronary heart disease. \u2013 High: Higher risk\\n\\n\\n\\nHigher levels decrease the risk of coronary heart disease. \u2013 Normal: Decreased risk \u2013 Low: Higher risk of coronary artery\\n\\n\\n\\n# disease\\n\\n\\n\\n# Notes\\n\\n\\n\\n5\",\"citation_id\":\"[^81724.5.0]\",\"score\":0.3420156240463257,\"doc_name\":\"Common_Labs.pdf\"},{\"text\":\"# Blood Test\\n\\n\\n\\n# Endocrine Labs\\n\\n\\n\\n# 25 Hydroxyvitamin D (25 OH Vit D)\\n\\n\\n\\n# Total Coenzyme Q 10 (CoQ10) Profile\\n\\n\\n\\n# Parathyroid Hormone (PTH)\\n\\n\\n\\n# Insulin (Free and Total)\\n\\n\\n\\n# Glucose (Random, Non- Fasting)\\n\\n\\n\\n# Creatine Kinase (CK)\\n\\n\\n\\n# Gamma-Glutamyl Transferase Test (GGT)\\n\\n\\n\\n# Hemoglobin A1C (HgbA1C)\\n\\n\\n\\n# Normal Range\\n\\n\\n\\n\u2013 <16 years: 24-86 pg/mL \u2013 > or =16 years: 18-64 pg/mL\\n\\n\\n\\n\u2013 <18 years: 320-1,558 mcg/L \u2013 > or =18 years: 433-1,532 mcg/L\\n\\n\\n\\n\u2013 4 weeks-11 months: 8.0-61 pg/mL \u2013 12 months-10 years: 11-59 pg/mL \u2013 11 years-17 years: 15-68 pg/mL \u2013 18 years and older: 15-65 pg/mL\\n\\n\\n\\n# \u2013 Free Insulin: 2.6-24.9 mcIU/mL \u2013 Total Insulin: 2.6-24.9 mcIU/mL\\n\\n\\n\\n\u2013 0-11 months: not established \u2013 > or =1 year: 70-140 mg/dL\\n\\n\\n\\n\u2013 < or =3 months: not established \u2013 >3 months: 39-308 U/L\\n\\n\\n\\n\u2013 0-11 months: <178 U/L \u2013 12 months-6 years: <21 U/L \u2013 7-12 years: <24 U/L \u2013 13-17 years: <43 U/L \u2013 > or =18 years: 8-61 U/L\\n\\n\\n\\nOver 18: \u2013 4.0 \u2013 5.6% normal \u2013 5.7 - 6.4% Pre-diabetic; increased\\n\\n\\n\\nrisk for Diabetes \u2013 >6.5% - diabetes\\n\\n\\n\\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\\n\\n\\n\\n# \u2013 Low: A lack of vitamin D stores in the\\n\\n\\n\\n# body\\n\\n\\n\\nCoQ10 is essential for mitochondrial activity. A low value may reflect a need for supplemental CoQ10.\\n\\n\\n\\nSerum calcium levels stimulate PTH release. The values are interpreted with calcium and phosphorous levels. A high level usually reflects a vitamin D deficiency.\\n\\n\\n\\nInsulin regulates the utilization of glucose by the body. High insulin may indicate early type II diabetes (insulin resistance); low levels indicate type I (insulin dependent) diabetes.\\n\\n\\n\\nA random glucose >200 mg/dL may indicate the presence of diabetes.\\n\\n\\n\\nCK will always be elevated in Duchenne, reflecting skeletal muscle injury.\\n\\n\\n\\n\u2013 High: May indicate liver disease;\\n\\n\\n\\noften interpreted with the alkaline phosphatase (ALP) level. Normal GGT with high ALP is consistent with skeletal disease.\\n\\n\\n\\nResult indicates potential risk for the development of pre-diabetes/diabetes.\\n\\n\\n\\n# Notes\\n\\n\\n\\n7\",\"citation_id\":\"[^81724.7.0]\",\"score\":0.3349495530128479,\"doc_name\":\"Common_Labs.pdf\"},{\"text\":\"# Blood Test\\n\\n\\n\\n# Insulin-Like Growth Factor bp3 (IGFbp3)\\n\\n\\n\\n# Free Testosterone\\n\\n\\n\\n# Normal Range\\n\\n\\n\\nBy Age: \u2013 1 year: 0.7-3.6 mcg/mL \u2013 2 years: 0.8-3.9 mcg/mL \u2013 3 years: 0.9-4.3 mcg/mL \u2013 4 years: 1.0-4.7 mcg/mL \u2013 5 years: 1.1-5.2 mcg/mL \u2013 6 years: 1.3-5.6 mcg/mL \u2013 7 years: 1.4-6.1 mcg/mL \u2013 8 years: 1.6-6.5 mcg/mL \u2013 9 years: 1.8-7.1 mcg/mL \u2013 10 years: 2.1-7.7 mcg/mL \u2013 11 years: 2.4-8.4 mcg/mL \u2013 12 years: 2.7-8.9 mcg/mL \u2013 13 years: 3.1-9.5 mcg/mL \u2013 14 years: 3.3-10 mcg/mL \u2013 15 years: 3.5-10 mcg/mL \u2013 16 years: 3.4-9.5 mcg/mL \u2013 17 years: 3.2-8.7 mcg/mL \u2013 18 years: 3.1-7.9 mcg/mL \u2013 19 years: 2.9-7.3 mcg/mL \u2013 20 years: 2.9-7.2 mcg/mL \u2013 21-25 years: 3.4-7.8 mcg/mL \u2013 26-30 years: 3.5-7.6 mcg/mL \u2013 31-35 years: 3.5-7.0 mcg/mL \u2013 36-40 years: 3.4-6.7 mcg/mL\\n\\n\\n\\nBy Tanner Stage: \u2013 Stage I: 1.4-5.2 mcg/mL \u2013 Stage II: 2.3-6.3 mcg/mL \u2013 Stage III: 3.1-8.9 mcg/mL \u2013 Stage IV: 3.7-8.7 mcg/mL \u2013 Stage V: 2.6-8.6 mcg/mL\\n\\n\\n\\n\u2013 20-<25 years: 5.25-20.7 ng/dL \u2013 25-<30 years: 5.05-19.8 ng/dL \u2013 30-<35 years: 4.85-19.0 ng/dL \u2013 35-<40 years: 4.65-18.1 ng/dL\\n\\n\\n\\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\\n\\n\\n\\n# \u2013 Low: Possible growth hormone\\n\\n\\n\\n# deficiency\\n\\n\\n\\nPrimary or secondary (due to steroid use) testicular failure.\\n\\n\\n\\n# Notes\\n\\n\\n\\n9\",\"citation_id\":\"[^81724.9.0]\",\"score\":0.31760239601135254,\"doc_name\":\"Common_Labs.pdf\"},{\"text\":\"# Blood Test\\n\\n\\n\\n# Insulin-Like Growth Factor 1 (IGF 1)\\n\\n\\n\\n# Normal Range\\n\\n\\n\\nBy age: \u2013 0-11 months: 18-156 ng/mL \u2013 1 year: 14-203 ng/mL \u2013 2 years: 16-222 ng/mL \u2013 3 years: 22-229 ng/mL \u2013 4 years: 30-236 ng/mL \u2013 5 years: 39-250 ng/mL \u2013 6 years: 47-275 ng/mL \u2013 7 years: 54-312 ng/mL \u2013 8 years: 61-356 ng/mL \u2013 9 years: 67-405 ng/mL \u2013 10 years: 73-456 ng/mL \u2013 11 years: 79-506 ng/mL \u2013 12 years: 84-551 ng/mL \u2013 13 years: 90-589 ng/mL \u2013 14 years: 95-618 ng/mL \u2013 15 years: 99-633 ng/mL \u2013 16 years: 104-633 ng/mL \u2013 17 years: 107-615 ng/mL \u2013 18-22 years: 91-442 ng/mL \u2013 23-25 years: 66-346 ng/mL \u2013 26-30 years: 60-329 ng/mL \u2013 31-35 years: 54-310 ng/mL \u2013 36-40 years: 48-292 ng/mL\\n\\n\\n\\nBy Tanner Stage: \u2013 Stage I: 81-255 ng/mL \u2013 Stage II: 106-432 ng/mL \u2013 Stage III: 245-511 ng/mL \u2013 Stage IV: 223-578 ng/mL \u2013 Stage V: 227-518 ng/mL\\n\\n\\n\\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\\n\\n\\n\\n# \u2013 Low: Possible growth hormone\\n\\n\\n\\n# deficiency.\\n\\n\\n\\n# Notes\\n\\n\\n\\n8\",\"citation_id\":\"[^81724.8.0]\",\"score\":0.3132983446121216,\"doc_name\":\"Common_Labs.pdf\"},{\"text\":\"# Blood Test\\n\\n\\n\\n# Total Testosterone\\n\\n\\n\\n# Normal Range\\n\\n\\n\\n# By Age:\\n\\n\\n\\n\u2013 0-5 months: 75-400 ng/dL\\n\\n\\n\\n\u2013 6 months-9 years: <7-20 ng/dL\\n\\n\\n\\n\u2013 10-11 years: <7-130 ng/dL\\n\\n\\n\\n\u2013 12-13 years: <7-800 ng/dL\\n\\n\\n\\n\u2013 14 years: <7-1,200 ng/dL\\n\\n\\n\\n\u2013 15-16 years: 100-1,200 ng/dL\\n\\n\\n\\n\u2013 17-18 years: 300-1,200 ng/dL\\n\\n\\n\\n\u2013 > or =19 years: 240-950 ng/dL\\n\\n\\n\\n# By Tanner Stages:\\n\\n\\n\\n# \u2013 I (prepubertal): <7-20\\n\\n\\n\\n\u2013 II: 8-66\\n\\n\\n\\n\u2013 III: 26-800\\n\\n\\n\\n\u2013 IV: 85-1,200\\n\\n\\n\\n# \u2013 V (young adult): 300-950\\n\\n\\n\\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\\n\\n\\n\\nPrimary or secondary (due to steroid use) testicular failure.\\n\\n\\n\\n# Notes\\n\\n\\n\\n10\",\"citation_id\":\"[^81724.10.0]\",\"score\":0.311670184135437,\"doc_name\":\"Common_Labs.pdf\"}],\"filtered_file_count\":0,\"usage\":[],\"query\":\"hello! Can you tell me WBC and hemoglobin levels..?\\n\"}]\n\nUser message\n\nhello! Can you tell me WBC and hemoglobin levels..?\n\n\n<available_citations>\n[^81724.2.0]: Common_Labs.pdf\n[^81724.1.0]: Common_Labs.pdf\n[^81724.3.0]: Common_Labs.pdf\n[^81724.6.0]: Common_Labs.pdf\n</available_citations>\n\n<tool_call_responses>\nTool call responses may also contain citable information identified by the following format [^\\d+.\\d+.\\d+]\n</tool_call_responses>\n",
+          "memory": {
+            "type": "SlidingWindow",
+            "params": {
+              "sliding_window_size": 10,
+              "user_id": "karlapolukoushik@gmail.com",
+              "org": "387c444d-f4ed-432f-b94e-395b95b9a486",
+              "flow_id": "6950d12b665b0c8c09400654",
+              "node_id": "llm-0",
+              "input": null
+            }
+          },
+          "applyGuardrails": false,
+          "citations": true,
+          "mermaid_charts": false,
+          "date": false,
+          "use_references": false,
+          "conformToPii": false,
+          "guardrailsFlag": null,
+          "piiFlag": null,
+          "encryptedPIIElements": {
+            "email": 0,
+            "phone": 0,
+            "ssn": 0,
+            "credit": 0
+          },
+          "WarningPIIElements": {
+            "email": 0,
+            "phone": 0,
+            "ssn": 0,
+            "credit": 0
+          },
+          "issue_warning": false,
+          "citation_list": [
+            {
+              "id": "81724.1.0",
+              "source_id": "81724",
+              "title": "Common_Labs.pdf",
+              "text": "# COMMON LABS AND WHAT THEY MEAN\n\n\n\nThe following are labs that are commonly drawn in neuromuscular centers. Normal ranges have been provided by mayocliniclabs.com. Common reasons for obtaining these labs, as well as possible reasons for high and low values, are included. This list is not exhaustive and any abnormal values, questions, or concerns should be discussed with your neuromuscular center.\n\n\n\n# Blood Test\n\n\n\n# Normal Range\n\n\n\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\n\n\n\n# Complete Blood Count (CBC)\n\n\n\nCBC includes components of white blood cells (infection fighting cells), red blood cells (oxygen-carrying cells), and measurements of how effectively the blood is able to clot or respond to real or perceived infection.\n\n\n\n# White Blood Cell Count (WBC)\n\n\n\n5,000-10,000 WBCs per mm3 or 5.0-10.0 x 109 WBC per Liter\n\n\n\n\u2013 High: Infection, inflammation; may be\n\n\n\nelevated with steroid use \u2013 Low: Not commonly low\n\n\n\n# Red Blood Cell Count (RBC)\n\n\n\n# \u2013 Children: 3.8\u20136.0 million RBCs per\n\n\n\nmcL or 3.8\u20136.0 x 1012/L\n\n\n\n# \u2013 High: Dehydration \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 4.5\u20135.5 million RBCs per\n\n\n\n# microliter (mcL) or 4.5\u20135.5 x 1012/ liter (L)\n\n\n\n# Hemoglobin (HGB)\n\n\n\n\u2013 Children: 9.5\u201320.5 g/dL or 95\u2013205\n\n\n\n# g/L\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 14\u201317.4 grams per\n\n\n\n# deciliter (g/dL) or 140\u2013174 grams per liter (g/L)\n\n\n\n# Hematocrit (HCT) \u2013 Children: 29%\u201359% or 0.29\u20130.59\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# volume fraction\n\n\n\n\u2013 Adults: 42%\u201352% or 0.42\u20130.52\n\n\n\n# volume fraction\n\n\n\n# Mean Corpuscular Volume (MCV)\n\n\n\n\u2013 6 months-23 months: 69.5-81.7 fL \u2013 24 months-35 months: 71.3-84.0\n\n\n\n# fL\n\n\n\n\u2013 3-5 years: 77.2-89.5 fL \u2013 6-11 years: 77.8-91.1 fL \u2013 12-14 years: 79.9-93.0 fL \u2013 15-17 years: 82.5-98.0 fL \u2013 Adults: 78.2-97.9 fL\n\n\n\nMeasures the size of the average red blood cell. \u2013 Low: Microcytic anemia \u2013 High: Macrocytic anemia\n\n\n\n# Mean Corpuscular Hemoglobin (MCH)\n\n\n\n27-33 pg\n\n\n\nMeasures the average amount of hemoglobin in a single red blood cell. \u2013 Low: Iron deficiency anemia \u2013 High: Can indicate macrocytic anemia\n\n\n\n# Notes\n\n\n\n1",
+              "citation_source_type": "knowledge_bases",
+              "source_is_website": false,
+              "source_mime_type": "application/pdf",
+              "external_source_url": null,
+              "supabase_signed_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NjY5MDUzMTYsImV4cCI6MTc2NzUxMDExNn0.c5n6qSy4MhBwgB47GXv_1Bosdz0wXNEofADlQaPAa74&download=Common_Labs.pdf",
+              "position": {
+                "page_idx": "1",
+                "chunk_idx": "0"
+              },
+              "knowledge_base_id": "df7fd205-d07f-4943-8c59-087447bb84d9",
+              "inode_id": "4b656858-4395-47a0-8dbc-3ab65b6653b8"
+            },
+            {
+              "id": "81724.1.0",
+              "source_id": "81724",
+              "title": "Common_Labs.pdf",
+              "text": "# COMMON LABS AND WHAT THEY MEAN\n\n\n\nThe following are labs that are commonly drawn in neuromuscular centers. Normal ranges have been provided by mayocliniclabs.com. Common reasons for obtaining these labs, as well as possible reasons for high and low values, are included. This list is not exhaustive and any abnormal values, questions, or concerns should be discussed with your neuromuscular center.\n\n\n\n# Blood Test\n\n\n\n# Normal Range\n\n\n\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\n\n\n\n# Complete Blood Count (CBC)\n\n\n\nCBC includes components of white blood cells (infection fighting cells), red blood cells (oxygen-carrying cells), and measurements of how effectively the blood is able to clot or respond to real or perceived infection.\n\n\n\n# White Blood Cell Count (WBC)\n\n\n\n5,000-10,000 WBCs per mm3 or 5.0-10.0 x 109 WBC per Liter\n\n\n\n\u2013 High: Infection, inflammation; may be\n\n\n\nelevated with steroid use \u2013 Low: Not commonly low\n\n\n\n# Red Blood Cell Count (RBC)\n\n\n\n# \u2013 Children: 3.8\u20136.0 million RBCs per\n\n\n\nmcL or 3.8\u20136.0 x 1012/L\n\n\n\n# \u2013 High: Dehydration \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 4.5\u20135.5 million RBCs per\n\n\n\n# microliter (mcL) or 4.5\u20135.5 x 1012/ liter (L)\n\n\n\n# Hemoglobin (HGB)\n\n\n\n\u2013 Children: 9.5\u201320.5 g/dL or 95\u2013205\n\n\n\n# g/L\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 14\u201317.4 grams per\n\n\n\n# deciliter (g/dL) or 140\u2013174 grams per liter (g/L)\n\n\n\n# Hematocrit (HCT) \u2013 Children: 29%\u201359% or 0.29\u20130.59\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# volume fraction\n\n\n\n\u2013 Adults: 42%\u201352% or 0.42\u20130.52\n\n\n\n# volume fraction\n\n\n\n# Mean Corpuscular Volume (MCV)\n\n\n\n\u2013 6 months-23 months: 69.5-81.7 fL \u2013 24 months-35 months: 71.3-84.0\n\n\n\n# fL\n\n\n\n\u2013 3-5 years: 77.2-89.5 fL \u2013 6-11 years: 77.8-91.1 fL \u2013 12-14 years: 79.9-93.0 fL \u2013 15-17 years: 82.5-98.0 fL \u2013 Adults: 78.2-97.9 fL\n\n\n\nMeasures the size of the average red blood cell. \u2013 Low: Microcytic anemia \u2013 High: Macrocytic anemia\n\n\n\n# Mean Corpuscular Hemoglobin (MCH)\n\n\n\n27-33 pg\n\n\n\nMeasures the average amount of hemoglobin in a single red blood cell. \u2013 Low: Iron deficiency anemia \u2013 High: Can indicate macrocytic anemia\n\n\n\n# Notes\n\n\n\n1",
+              "citation_source_type": "knowledge_bases",
+              "source_is_website": false,
+              "source_mime_type": "application/pdf",
+              "external_source_url": null,
+              "supabase_signed_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NjY5MDUzMTYsImV4cCI6MTc2NzUxMDExNn0.c5n6qSy4MhBwgB47GXv_1Bosdz0wXNEofADlQaPAa74&download=Common_Labs.pdf",
+              "position": {
+                "page_idx": "1",
+                "chunk_idx": "0"
+              },
+              "knowledge_base_id": "df7fd205-d07f-4943-8c59-087447bb84d9",
+              "inode_id": "4b656858-4395-47a0-8dbc-3ab65b6653b8"
+            },
+            {
+              "id": "81724.1.0",
+              "source_id": "81724",
+              "title": "Common_Labs.pdf",
+              "text": "# COMMON LABS AND WHAT THEY MEAN\n\n\n\nThe following are labs that are commonly drawn in neuromuscular centers. Normal ranges have been provided by mayocliniclabs.com. Common reasons for obtaining these labs, as well as possible reasons for high and low values, are included. This list is not exhaustive and any abnormal values, questions, or concerns should be discussed with your neuromuscular center.\n\n\n\n# Blood Test\n\n\n\n# Normal Range\n\n\n\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\n\n\n\n# Complete Blood Count (CBC)\n\n\n\nCBC includes components of white blood cells (infection fighting cells), red blood cells (oxygen-carrying cells), and measurements of how effectively the blood is able to clot or respond to real or perceived infection.\n\n\n\n# White Blood Cell Count (WBC)\n\n\n\n5,000-10,000 WBCs per mm3 or 5.0-10.0 x 109 WBC per Liter\n\n\n\n\u2013 High: Infection, inflammation; may be\n\n\n\nelevated with steroid use \u2013 Low: Not commonly low\n\n\n\n# Red Blood Cell Count (RBC)\n\n\n\n# \u2013 Children: 3.8\u20136.0 million RBCs per\n\n\n\nmcL or 3.8\u20136.0 x 1012/L\n\n\n\n# \u2013 High: Dehydration \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 4.5\u20135.5 million RBCs per\n\n\n\n# microliter (mcL) or 4.5\u20135.5 x 1012/ liter (L)\n\n\n\n# Hemoglobin (HGB)\n\n\n\n\u2013 Children: 9.5\u201320.5 g/dL or 95\u2013205\n\n\n\n# g/L\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 14\u201317.4 grams per\n\n\n\n# deciliter (g/dL) or 140\u2013174 grams per liter (g/L)\n\n\n\n# Hematocrit (HCT) \u2013 Children: 29%\u201359% or 0.29\u20130.59\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# volume fraction\n\n\n\n\u2013 Adults: 42%\u201352% or 0.42\u20130.52\n\n\n\n# volume fraction\n\n\n\n# Mean Corpuscular Volume (MCV)\n\n\n\n\u2013 6 months-23 months: 69.5-81.7 fL \u2013 24 months-35 months: 71.3-84.0\n\n\n\n# fL\n\n\n\n\u2013 3-5 years: 77.2-89.5 fL \u2013 6-11 years: 77.8-91.1 fL \u2013 12-14 years: 79.9-93.0 fL \u2013 15-17 years: 82.5-98.0 fL \u2013 Adults: 78.2-97.9 fL\n\n\n\nMeasures the size of the average red blood cell. \u2013 Low: Microcytic anemia \u2013 High: Macrocytic anemia\n\n\n\n# Mean Corpuscular Hemoglobin (MCH)\n\n\n\n27-33 pg\n\n\n\nMeasures the average amount of hemoglobin in a single red blood cell. \u2013 Low: Iron deficiency anemia \u2013 High: Can indicate macrocytic anemia\n\n\n\n# Notes\n\n\n\n1",
+              "citation_source_type": "knowledge_bases",
+              "source_is_website": false,
+              "source_mime_type": "application/pdf",
+              "external_source_url": null,
+              "supabase_signed_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NjY5MDUzMTYsImV4cCI6MTc2NzUxMDExNn0.c5n6qSy4MhBwgB47GXv_1Bosdz0wXNEofADlQaPAa74&download=Common_Labs.pdf",
+              "position": {
+                "page_idx": "1",
+                "chunk_idx": "0"
+              },
+              "knowledge_base_id": "df7fd205-d07f-4943-8c59-087447bb84d9",
+              "inode_id": "4b656858-4395-47a0-8dbc-3ab65b6653b8"
+            },
+            {
+              "id": "81724.1.0",
+              "source_id": "81724",
+              "title": "Common_Labs.pdf",
+              "text": "# COMMON LABS AND WHAT THEY MEAN\n\n\n\nThe following are labs that are commonly drawn in neuromuscular centers. Normal ranges have been provided by mayocliniclabs.com. Common reasons for obtaining these labs, as well as possible reasons for high and low values, are included. This list is not exhaustive and any abnormal values, questions, or concerns should be discussed with your neuromuscular center.\n\n\n\n# Blood Test\n\n\n\n# Normal Range\n\n\n\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\n\n\n\n# Complete Blood Count (CBC)\n\n\n\nCBC includes components of white blood cells (infection fighting cells), red blood cells (oxygen-carrying cells), and measurements of how effectively the blood is able to clot or respond to real or perceived infection.\n\n\n\n# White Blood Cell Count (WBC)\n\n\n\n5,000-10,000 WBCs per mm3 or 5.0-10.0 x 109 WBC per Liter\n\n\n\n\u2013 High: Infection, inflammation; may be\n\n\n\nelevated with steroid use \u2013 Low: Not commonly low\n\n\n\n# Red Blood Cell Count (RBC)\n\n\n\n# \u2013 Children: 3.8\u20136.0 million RBCs per\n\n\n\nmcL or 3.8\u20136.0 x 1012/L\n\n\n\n# \u2013 High: Dehydration \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 4.5\u20135.5 million RBCs per\n\n\n\n# microliter (mcL) or 4.5\u20135.5 x 1012/ liter (L)\n\n\n\n# Hemoglobin (HGB)\n\n\n\n\u2013 Children: 9.5\u201320.5 g/dL or 95\u2013205\n\n\n\n# g/L\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 14\u201317.4 grams per\n\n\n\n# deciliter (g/dL) or 140\u2013174 grams per liter (g/L)\n\n\n\n# Hematocrit (HCT) \u2013 Children: 29%\u201359% or 0.29\u20130.59\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# volume fraction\n\n\n\n\u2013 Adults: 42%\u201352% or 0.42\u20130.52\n\n\n\n# volume fraction\n\n\n\n# Mean Corpuscular Volume (MCV)\n\n\n\n\u2013 6 months-23 months: 69.5-81.7 fL \u2013 24 months-35 months: 71.3-84.0\n\n\n\n# fL\n\n\n\n\u2013 3-5 years: 77.2-89.5 fL \u2013 6-11 years: 77.8-91.1 fL \u2013 12-14 years: 79.9-93.0 fL \u2013 15-17 years: 82.5-98.0 fL \u2013 Adults: 78.2-97.9 fL\n\n\n\nMeasures the size of the average red blood cell. \u2013 Low: Microcytic anemia \u2013 High: Macrocytic anemia\n\n\n\n# Mean Corpuscular Hemoglobin (MCH)\n\n\n\n27-33 pg\n\n\n\nMeasures the average amount of hemoglobin in a single red blood cell. \u2013 Low: Iron deficiency anemia \u2013 High: Can indicate macrocytic anemia\n\n\n\n# Notes\n\n\n\n1",
+              "citation_source_type": "knowledge_bases",
+              "source_is_website": false,
+              "source_mime_type": "application/pdf",
+              "external_source_url": null,
+              "supabase_signed_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NjY5MDUzMTYsImV4cCI6MTc2NzUxMDExNn0.c5n6qSy4MhBwgB47GXv_1Bosdz0wXNEofADlQaPAa74&download=Common_Labs.pdf",
+              "position": {
+                "page_idx": "1",
+                "chunk_idx": "0"
+              },
+              "knowledge_base_id": "df7fd205-d07f-4943-8c59-087447bb84d9",
+              "inode_id": "4b656858-4395-47a0-8dbc-3ab65b6653b8"
+            },
+            {
+              "id": "81724.1.0",
+              "source_id": "81724",
+              "title": "Common_Labs.pdf",
+              "text": "# COMMON LABS AND WHAT THEY MEAN\n\n\n\nThe following are labs that are commonly drawn in neuromuscular centers. Normal ranges have been provided by mayocliniclabs.com. Common reasons for obtaining these labs, as well as possible reasons for high and low values, are included. This list is not exhaustive and any abnormal values, questions, or concerns should be discussed with your neuromuscular center.\n\n\n\n# Blood Test\n\n\n\n# Normal Range\n\n\n\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\n\n\n\n# Complete Blood Count (CBC)\n\n\n\nCBC includes components of white blood cells (infection fighting cells), red blood cells (oxygen-carrying cells), and measurements of how effectively the blood is able to clot or respond to real or perceived infection.\n\n\n\n# White Blood Cell Count (WBC)\n\n\n\n5,000-10,000 WBCs per mm3 or 5.0-10.0 x 109 WBC per Liter\n\n\n\n\u2013 High: Infection, inflammation; may be\n\n\n\nelevated with steroid use \u2013 Low: Not commonly low\n\n\n\n# Red Blood Cell Count (RBC)\n\n\n\n# \u2013 Children: 3.8\u20136.0 million RBCs per\n\n\n\nmcL or 3.8\u20136.0 x 1012/L\n\n\n\n# \u2013 High: Dehydration \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 4.5\u20135.5 million RBCs per\n\n\n\n# microliter (mcL) or 4.5\u20135.5 x 1012/ liter (L)\n\n\n\n# Hemoglobin (HGB)\n\n\n\n\u2013 Children: 9.5\u201320.5 g/dL or 95\u2013205\n\n\n\n# g/L\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 14\u201317.4 grams per\n\n\n\n# deciliter (g/dL) or 140\u2013174 grams per liter (g/L)\n\n\n\n# Hematocrit (HCT) \u2013 Children: 29%\u201359% or 0.29\u20130.59\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# volume fraction\n\n\n\n\u2013 Adults: 42%\u201352% or 0.42\u20130.52\n\n\n\n# volume fraction\n\n\n\n# Mean Corpuscular Volume (MCV)\n\n\n\n\u2013 6 months-23 months: 69.5-81.7 fL \u2013 24 months-35 months: 71.3-84.0\n\n\n\n# fL\n\n\n\n\u2013 3-5 years: 77.2-89.5 fL \u2013 6-11 years: 77.8-91.1 fL \u2013 12-14 years: 79.9-93.0 fL \u2013 15-17 years: 82.5-98.0 fL \u2013 Adults: 78.2-97.9 fL\n\n\n\nMeasures the size of the average red blood cell. \u2013 Low: Microcytic anemia \u2013 High: Macrocytic anemia\n\n\n\n# Mean Corpuscular Hemoglobin (MCH)\n\n\n\n27-33 pg\n\n\n\nMeasures the average amount of hemoglobin in a single red blood cell. \u2013 Low: Iron deficiency anemia \u2013 High: Can indicate macrocytic anemia\n\n\n\n# Notes\n\n\n\n1",
+              "citation_source_type": "knowledge_bases",
+              "source_is_website": false,
+              "source_mime_type": "application/pdf",
+              "external_source_url": null,
+              "supabase_signed_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NjY5MDUzMTYsImV4cCI6MTc2NzUxMDExNn0.c5n6qSy4MhBwgB47GXv_1Bosdz0wXNEofADlQaPAa74&download=Common_Labs.pdf",
+              "position": {
+                "page_idx": "1",
+                "chunk_idx": "0"
+              },
+              "knowledge_base_id": "df7fd205-d07f-4943-8c59-087447bb84d9",
+              "inode_id": "4b656858-4395-47a0-8dbc-3ab65b6653b8"
+            },
+            {
+              "id": "81724.1.0",
+              "source_id": "81724",
+              "title": "Common_Labs.pdf",
+              "text": "# COMMON LABS AND WHAT THEY MEAN\n\n\n\nThe following are labs that are commonly drawn in neuromuscular centers. Normal ranges have been provided by mayocliniclabs.com. Common reasons for obtaining these labs, as well as possible reasons for high and low values, are included. This list is not exhaustive and any abnormal values, questions, or concerns should be discussed with your neuromuscular center.\n\n\n\n# Blood Test\n\n\n\n# Normal Range\n\n\n\nAbout / Common Reasons (not ALL reasons) to be Outside of Normal Range\n\n\n\n# Complete Blood Count (CBC)\n\n\n\nCBC includes components of white blood cells (infection fighting cells), red blood cells (oxygen-carrying cells), and measurements of how effectively the blood is able to clot or respond to real or perceived infection.\n\n\n\n# White Blood Cell Count (WBC)\n\n\n\n5,000-10,000 WBCs per mm3 or 5.0-10.0 x 109 WBC per Liter\n\n\n\n\u2013 High: Infection, inflammation; may be\n\n\n\nelevated with steroid use \u2013 Low: Not commonly low\n\n\n\n# Red Blood Cell Count (RBC)\n\n\n\n# \u2013 Children: 3.8\u20136.0 million RBCs per\n\n\n\nmcL or 3.8\u20136.0 x 1012/L\n\n\n\n# \u2013 High: Dehydration \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 4.5\u20135.5 million RBCs per\n\n\n\n# microliter (mcL) or 4.5\u20135.5 x 1012/ liter (L)\n\n\n\n# Hemoglobin (HGB)\n\n\n\n\u2013 Children: 9.5\u201320.5 g/dL or 95\u2013205\n\n\n\n# g/L\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# \u2013 Adults: 14\u201317.4 grams per\n\n\n\n# deciliter (g/dL) or 140\u2013174 grams per liter (g/L)\n\n\n\n# Hematocrit (HCT) \u2013 Children: 29%\u201359% or 0.29\u20130.59\n\n\n\n# \u2013 Low: Anemia\n\n\n\n# volume fraction\n\n\n\n\u2013 Adults: 42%\u201352% or 0.42\u20130.52\n\n\n\n# volume fraction\n\n\n\n# Mean Corpuscular Volume (MCV)\n\n\n\n\u2013 6 months-23 months: 69.5-81.7 fL \u2013 24 months-35 months: 71.3-84.0\n\n\n\n# fL\n\n\n\n\u2013 3-5 years: 77.2-89.5 fL \u2013 6-11 years: 77.8-91.1 fL \u2013 12-14 years: 79.9-93.0 fL \u2013 15-17 years: 82.5-98.0 fL \u2013 Adults: 78.2-97.9 fL\n\n\n\nMeasures the size of the average red blood cell. \u2013 Low: Microcytic anemia \u2013 High: Macrocytic anemia\n\n\n\n# Mean Corpuscular Hemoglobin (MCH)\n\n\n\n27-33 pg\n\n\n\nMeasures the average amount of hemoglobin in a single red blood cell. \u2013 Low: Iron deficiency anemia \u2013 High: Can indicate macrocytic anemia\n\n\n\n# Notes\n\n\n\n1",
+              "citation_source_type": "knowledge_bases",
+              "source_is_website": false,
+              "source_mime_type": "application/pdf",
+              "external_source_url": null,
+              "supabase_signed_url": "https://sb.stack-ai.com/storage/v1/object/sign/kb_vfs_indexed_documents/387c444d-f4ed-432f-b94e-395b95b9a486/df7fd205-d07f-4943-8c59-087447bb84d9/4b656858-4395-47a0-8dbc-3ab65b6653b8?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yNjI5ZjEzMi01MzA3LTQzMmYtYjcyOS00NGQ2MGI5NDMzYTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJrYl92ZnNfaW5kZXhlZF9kb2N1bWVudHMvMzg3YzQ0NGQtZjRlZC00MzJmLWI5NGUtMzk1Yjk1YjlhNDg2L2RmN2ZkMjA1LWQwN2YtNDk0My04YzU5LTA4NzQ0N2JiODRkOS80YjY1Njg1OC00Mzk1LTQ3YTAtOGRiYy0zYWI2NWI2NjUzYjgiLCJpYXQiOjE3NjY5MDUzMTYsImV4cCI6MTc2NzUxMDExNn0.c5n6qSy4MhBwgB47GXv_1Bosdz0wXNEofADlQaPAa74&download=Common_Labs.pdf",
+              "position": {
+                "page_idx": "1",
+                "chunk_idx": "0"
+              },
+              "knowledge_base_id": "df7fd205-d07f-4943-8c59-087447bb84d9",
+              "inode_id": "4b656858-4395-47a0-8dbc-3ab65b6653b8"
+            }
+          ],
+          "resume_payload": null,
+          "hitl_checkpoint_data": null,
+          "tools": [],
+          "mcp_connection_ids": null,
+          "raw_mcp_configs": null,
+          "built_in_tools": null,
+          "is_fallback_enabled": false,
+          "fallback_llm_provider": null,
+          "fallback_llm_model_name": null,
+          "subflow_tools": [],
+          "continuation_memory": [],
+          "pending_tool_calls": []
+        },
+        "selected": false,
+        "dragging": false,
+        "position": {
+          "x": 807.4658669762367,
+          "y": 19.486179441813988
+        },
+        "extent": null,
+        "parentId": null,
+        "style": null
+      }
+    ],
+    "edges": [
+      {
+        "id": "reactflow__edge-llm-0output-out-0",
+        "type": "stack_edge",
+        "source": "llm-0",
+        "sourceHandle": "output",
+        "target": "out-0",
+        "targetHandle": null,
+        "value": null
+      },
+      {
+        "id": "xy-edge__in-0-knowledgebase-0",
+        "type": "stack_edge",
+        "source": "in-0",
+        "sourceHandle": null,
+        "target": "knowledgebase-0",
+        "targetHandle": null,
+        "value": null
+      },
+      {
+        "id": "xy-edge__knowledgebase-0-llm-0memory",
+        "type": "stack_edge",
+        "source": "knowledgebase-0",
+        "sourceHandle": null,
+        "target": "llm-0",
+        "targetHandle": "memory",
+        "value": null
+      },
+      {
+        "id": "xy-edge__doc-0-llm-0memory",
+        "type": "stack_edge",
+        "source": "doc-0",
+        "sourceHandle": null,
+        "target": "llm-0",
+        "targetHandle": "memory",
+        "value": null
+      }
+    ],
+    "viewport": {
+      "x": -544.0445014665686,
+      "y": 222.65302728200868,
+      "zoom": 1.0704404596713366
+    },
+    "cost": 0.0,
+    "total_tokens": 0,
+    "version": -1,
+    "run_id": null
+  },
+  "ui_options": {
+    "flow_id": "6950d12b665b0c8c09400654",
+    "ui_type": "chat-assistant",
+    "inputs": [
+      "in-0",
+      "doc-0"
+    ],
+    "Outputs": [
+      "out-0"
+    ],
+    "inputs_descriptions": {},
+    "Outputs_descriptions": {},
+    "inputs_order": {},
+    "Outputs_order": {},
+    "inputs_default_names": {
+      "doc-0": "Files",
+      "in-0": "Question"
+    },
+    "Outputs_default_names": {
+      "out-0": "Answer"
+    },
+    "required_inputs": [],
+    "multi_select_options": {},
+    "theme": "default",
+    "name": "MEDICAL AI",
+    "description": "THE AGENT WILL ANALYZE THE BLOOD REPORT",
+    "logo": null,
+    "icon_url": "",
+    "icon_file_id": null,
+    "color": "blue",
+    "user_color": "",
+    "font": "font-normal",
+    "bg_color": "white",
+    "border_color": "gray-200",
+    "font_color": "gray-900",
+    "rounding": "md",
+    "welcome_message": "",
+    "error_message": "",
+    "always_open": false,
+    "clear_chat": false,
+    "stop_chat": false,
+    "website_chatbot_config": {
+      "toggle_button_size_pixels": null
+    },
+    "feedback": false,
+    "feedback_placeholder": null,
+    "is_legacy_ui": false,
+    "is_new_gptview": true,
+    "has_suggested_messages": false,
+    "suggested_messages": [],
+    "enable_followups": true,
+    "show_steps": true,
+    "log_with_sso": false,
+    "disclaimer_message": "AI assistants might make mistakes. Check important information.",
+    "form_submit_button_text": "Submit",
+    "icon_message": "How can I help you today?",
+    "default_loading_message": null,
+    "enable_icon_message": false,
+    "input_placeholder_message": "Write a message...",
+    "allowed_origin_urls": [],
+    "show_attachment_icon": true,
+    "show_audio_icon": true,
+    "open_graph_image_url": null,
+    "collapse_sidebar_by_default": false,
+    "enable_llm_title_generation": true,
+    "hide_welcome_avatar": true,
+    "password": null,
+    "twilio_sid": null,
+    "twilio_api_key": null,
+    "microsoft_teams": null,
+    "sso_access": null
+  },
+  "form_ui_options": {
+    "background_config": {
+      "mode": "color",
+      "color": null,
+      "image": null,
+      "image_file_id": null
+    },
+    "submit_button_config": {
+      "label": "Submit",
+      "color": "black",
+      "icon": null
+    },
+    "banner_config": {
+      "mode": "color",
+      "color": "light gray",
+      "image": null,
+      "image_file_id": null
+    },
+    "node_block_config": [],
+    "tip_tap_json": {},
+    "chat_with_form_config": {
+      "enable": true
+    },
+    "execution_config": {
+      "mode": "streaming"
+    }
+  },
+  "description": "Draft version of the project",
+  "show_notes": true,
+  "export_timestamp": 1771437089875,
+  "export_version": "1.0"
+}
